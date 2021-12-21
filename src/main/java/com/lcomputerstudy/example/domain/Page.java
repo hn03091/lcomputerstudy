@@ -11,6 +11,9 @@ public class Page {
 	int nextPage;     // pagination의 다음 목록
 	public static final int pageUnit=5;  // 한번에 불러 올 pagination 수
 	public static final int perPage=3;   // 한번에 불러 올 userCount 수
+	Search search;
+	String type;
+	String keyword;
 	
 	public Page() {
 		
@@ -27,6 +30,31 @@ public class Page {
 		
 		
 	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public Search getSearch() {
+		return search;
+	}
+
+	public void setSearch(Search search) {
+		this.search = search;
+	}
+
 	public int getBoardCount() {
 		return count;
 	}

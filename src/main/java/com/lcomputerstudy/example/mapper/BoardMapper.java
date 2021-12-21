@@ -38,4 +38,6 @@ public interface BoardMapper {
 	public int countBoard();
 	
 	public List<Board> selectBoard(Page page);
+	
+	public List<Board> searchBoard(Page page);
 }

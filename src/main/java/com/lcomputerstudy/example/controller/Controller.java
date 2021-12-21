@@ -36,6 +36,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.BoardFile;
 import com.lcomputerstudy.example.domain.Page;
+import com.lcomputerstudy.example.domain.Search;
 import com.lcomputerstudy.example.domain.User;
 import com.lcomputerstudy.example.service.BoardService;
 import com.lcomputerstudy.example.service.UserService;
@@ -56,10 +57,12 @@ public class Controller {
 	UserService userservice;
 
 	@RequestMapping("/")
-	public String home(Model model, Page page) {
+	public String home(Model model, Page page, Board board,Search search) {
 		page.setCount(boardservice.countBoard());
 		page.init();
 		List<Board> list = boardservice.selectBoard(page);
+		
+		
 		model.addAttribute("list", list);
 		logger.debug("debug");
 		logger.info("info");

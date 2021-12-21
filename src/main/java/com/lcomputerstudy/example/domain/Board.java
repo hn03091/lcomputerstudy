@@ -21,7 +21,22 @@ public class Board {
 	private String fileName;
 	private List<BoardFile> boardFiles;
 	private List<Comment> comments;
+	private String Field;
+	private String Query;
 	
+	
+	public String getField() {
+		return Field;
+	}
+	public void setField(String field) {
+		Field = field;
+	}
+	public String getQuery() {
+		return Query;
+	}
+	public void setQuery(String query) {
+		Query = query;
+	}
 	public int getROWNUM() {
 		return ROWNUM;
 	}

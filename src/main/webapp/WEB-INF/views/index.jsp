@@ -45,19 +45,22 @@ li {
 <body>
 	<h1>Hello World</h1>
 	<table>
+
+
 		<div>
 			<form method="GET">
 				<fieldset>
 					<legend>글 검색</legend>
-					<label>검색분류</label> <select name="f">
+					<label>검색분류</label> <select name="type">
 						<option value="b_title">제목</option>
-						<option value="u_name">작성자</option>
-					</select> <label>검색어</label> <input type="text" name="q" value="" /> <input
+						<option value="b_writer">작성자</option>
+					</select> <label>검색어</label> <input type="text" name="keyword" value="" /> <input
 						type="submit" value="검색">
 					<%--f(제목,작성자)=title&q=(검색내용) --%>
 				</fieldset>
 			</form>
 		</div>
+
 		<tr>
 			<td>게시판 번호</td>
 			<td>제목</td>
@@ -79,34 +82,27 @@ li {
 		<ul>
 			<c:choose>
 				<c:when test="${ page.prevPage  >=1 }">
-					<li style="">
-						<a href="/?nowpage=${page.prevPage}">◀</a>
-					</li>
+					<li style=""><a href="/?nowpage=${page.prevPage}">◀</a></li>
 				</c:when>
 			</c:choose>
-			
-			<c:forEach var="i" begin="${page.startPage}" end ="${page.endPage}" step="1">
+
+			<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}"
+				step="1">
 				<c:choose>
 					<c:when test="${ page.nowpage == i }">
-						
-						<li style="background-color:#ededed;">
-							<span>${i}</span>
-						</li>
-						
+
+						<li style="background-color: #ededed;"><span>${i}</span></li>
+
 					</c:when>
 					<c:when test="${ page.nowpage != i }">
-						<li>
-							<a href="/?nowpage=${i}">${i}</a>
-						</li>
+						<li><a href="/?nowpage=${i}">${i}</a></li>
 					</c:when>
 				</c:choose>
 			</c:forEach>
-			
+
 			<c:choose>
 				<c:when test="${ page.nextPage <= page.lastPage }">
-					<li style="">
-						<a href="/?nowpage=${page.nextPage}">▶</a>
-					</li>
+					<li style=""><a href="/?nowpage=${page.nextPage}">▶</a></li>
 				</c:when>
 			</c:choose>
 		</ul>

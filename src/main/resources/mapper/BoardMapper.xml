@@ -26,10 +26,13 @@
 	LIMIT #{pageNum},3
 	</select>
 	
-	<select id="searchBoard" resultType = "Board">
-		SELECT #{}
-
+	<select id="searchBoard" resultType = "Board" parameterType="Page">
+		SELECT #{search.type}
 		
+		FROM board
+		
+		WHERE ${search.type} LIKE concat('%', #{search.keyword}, '%');		
+
 	</select>
 	<!-- 
 	<select id="selectBoard" resultType="Board">
