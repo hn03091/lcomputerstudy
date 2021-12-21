@@ -14,7 +14,7 @@
 	<select id="countBoard" resultType="int">
 		SELECT COUNT(*) FROM BOARD
 	</select>
-	<select id="selectBoard" resultType ="Board">
+	<select11 id="selectBoard" resultType ="Board">
 	SELECT 		@ROWNUM := @ROWNUM -1 AS ROWNUM, 
 				ta.b_idx as bId,
                 ta.b_title as bTitle,
