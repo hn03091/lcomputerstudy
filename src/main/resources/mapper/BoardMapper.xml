@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcomputerstudy.example.mapper.BoardMapper">
+	<select id="selectBoardList" resultType="Board">
+	      SELECT         b_idx as bId,
+				                 b_title as bTitle,
+				                 b_content as bContent,
+				                 b_date as bDateTime,
+				                 b_writer as bWriter
+				                 
+	      FROM           board
+	   </select>
+	
+	<select id="countBoard" resultType="int">
+		SELECT COUNT(*) FROM BOARD
+	</select>
+	<select id="selectBoard" resultType ="Board">
+	SELECT 		@ROWNUM := @ROWNUM -1 AS ROWNUM, 
+				ta.b_idx as bId,
+                ta.b_title as bTitle,
+                ta.b_content as bContent,
+                ta.b_date as bDateTime,
+                ta.b_writer as bWriter
+	FROM 		board ta
+	INNER join	(SELECT @rownum:= (SELECT COUNT(*) -#{pageNum}+1 FROM board ta)) tb ON 1=1
+	LIMIT #{pageNum},3
+	<select id="searchBoard" resultType = "Board">
+		SELECT #{}
+	</select>
+
+		
+	</select>
+	<!-- 
+	<select id="selectBoard" resultType="Board">
+		SELECT *
+			FROM (
+					SELECT @ROWNUM RN, A.*
+						FROM(
+								SELECT *
+								FROM BOARD
+								ORDER BY b_idx DESC
+								)A
+						)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	 -->
+	<insert id="boardwrite" parameterType="Board">
+		INSERT INTO board(
+			b_idx,
+			b_title,
+			b_content,
+			b_writer,
+			b_date
+			
+		)VALUES(
+		    #{bId},
+		    #{bTitle},
+		    #{bContent},
+		    #{bWriter},
+		    #{bDateTime}
+		
+		)
+		 <selectKey keyProperty="bId" resultType="Integer">
+    		SELECT LAST_INSERT_ID()
+  		</selectKey>
+		
+	</insert>
+	
+	<insert id="fileNames" parameterType="Board">	
+		INSERT INTO file(b_idx, fileName)
+		VALUES
+		<foreach item="item" collection="fileNames" separator= ",">
+			(#{bId},#{item})
+		</foreach>
+		
+	</insert>
+	
+
+	
+	<insert id="boardDelete" parameterType="Board">
+		DELETE ta.*, tb.* , tc.*
+		FROM board ta LEFT JOIN comment tb ON ta.b_idx = tb.b_idx
+				LEFT JOIN file tc ON ta.b_idx = tc.b_idx
+		WHERE ta.b_idx = #{bId}
+		
+	</insert>
+	
+	<insert id="commentDelete" parameterType="Comment">
+		DELETE 
+		FROM comment
+		WHERE c_no = #{c_no}
+		
+	</insert>
+	
+	<insert id="updateProcess" parameterType="Board">
+		UPDATE board
+		SET
+			b_title= #{bTitle},
+			b_content= #{bContent},
+			b_date = #{bDateTime}
+			
+		WHERE b_idx = #{bId}
+	</insert>
+	
+	<insert id="fileDelete" parameterType="BoardFile">
+		DELETE 
+		FROM file
+		WHERE bf_idx = #{bfIdx}
+	</insert>
+	
+	<resultMap id="boardResult" type="Board">
+		<id property="bId"			column="b_idx"/>
+		<result property="bTitle"		column="b_title"/>
+		<result property="bContent"		column="b_content"/>
+		<result property="bWriter"		column="b_writer"/>
+		<result property="bDateTime"	column="b_date"/>
+		
+		<collection property="comments" ofType="Comment">
+			<id property="c_no"			column="c_no"/>
+			<result property="bId"			column="b_idx"/>
+			<result property="c_content"	column="c_content"/>
+			<result property="c_writer"		column="c_writer"/>
+			<result property="c_date"		column="c_date"/>
+		</collection>
+		
+		<collection property="boardFiles" ofType="BoardFile">
+			<id property="bfIdx"			column="bf_idx"/>
+			<result property="bId"			column="b_idx"/>
+			<result property="fileName"		column="fileName"/>
+		</collection>
+		
+	</resultMap>
+	
+	<select id="boarddetail" resultMap="boardResult">
+		SELECT		*
+		FROM		board ta
+		LEFT JOIN 	comment tb ON ta.b_idx = tb.b_idx
+		LEFT JOIN	file tc ON ta.b_idx = tc.b_idx
+		WHERE		ta.b_idx = #{bId}
+	</select>
+	
+	<select id= "comments" parameterType="java.util.Map" resultType="Comment">
+		select		b_idx as bId,
+					c_writer, c_content, c_no, c_date
+					
+		from 		comment
+		
+		where 		b_idx = #{bId}
+	</select>
+	<select id="boardFiles" parameterType="java.util.Map" resultType="BoardFile" >
+		select		board.b_idx as bId,
+					fileName
+					
+		from 		board LEFT JOIN file	ON board.b_idx = file.b_idx
+		
+		where 		board.b_idx = #{bId}
+	</select>
+	
+	
+	
+	<insert id="boardcomment" parameterType="Board">
+		INSERT INTO comment(
+				c_no,
+				c_content,
+				c_writer,
+				c_date,
+				b_idx
+				)VALUES(
+				#{c_no},
+				#{c_content},
+				#{c_writer},
+				#{c_date},
+				#{bId}
+				)
+				
+	</insert>
+</mapper>
