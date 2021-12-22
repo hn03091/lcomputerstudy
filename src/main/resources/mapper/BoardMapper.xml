@@ -11,9 +11,24 @@
 	      FROM           board
 	   </select>
 	
-	<select id="countBoard" resultType="int">
-		SELECT COUNT(*) FROM BOARD
+	<sql id = "searchType">
+		<trim prefix="WHERE" prefixOverrides="AND|OR">	
+			<if test="type == 'b_title' and keyword != null and keyword != ''">
+				AND b_title like concat('%',#{keyword},'%')
+			</if>
+			<if test="type == 'b_writer' and keyword != null and keyword != ''">
+				AND b_writer like concat('$',#{keyword},'%')
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="countBoard" resultType="int" parameterType="Page">
+		SELECT COUNT(*) 
+		FROM BOARD
+		<include refid="searchType"></include>
 	</select>
+	
+	
 	<select id="selectBoard" resultType ="Board">
 	SELECT 		@ROWNUM := @ROWNUM -1 AS ROWNUM, 
 				ta.b_idx as bId,
@@ -22,32 +37,14 @@
                 ta.b_date as bDateTime,
                 ta.b_writer as bWriter
 	FROM 		board ta
+	
 	INNER join	(SELECT @rownum:= (SELECT COUNT(*) -#{pageNum}+1 FROM board ta)) tb ON 1=1
+	<include refid="searchType"></include>
 	LIMIT #{pageNum},3
+	
 	</select>
 	
-	<select id="searchBoard" resultType = "Board" parameterType="Page">
-		SELECT #{search.type}
-		
-		FROM board
-		
-		WHERE ${search.type} LIKE concat('%', #{search.keyword}, '%');		
-
-	</select>
-	<!-- 
-	<select id="selectBoard" resultType="Board">
-		SELECT *
-			FROM (
-					SELECT @ROWNUM RN, A.*
-						FROM(
-								SELECT *
-								FROM BOARD
-								ORDER BY b_idx DESC
-								)A
-						)
-		WHERE RN BETWEEN #{start} AND #{end}
-	</select>
-	 -->
+	
 	<insert id="boardwrite" parameterType="Board">
 		INSERT INTO board(
 			b_idx,

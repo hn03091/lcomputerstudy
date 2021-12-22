@@ -58,7 +58,7 @@ public class Controller {
 
 	@RequestMapping("/")
 	public String home(Model model, Page page, Board board,Search search) {
-		page.setCount(boardservice.countBoard());
+		page.setCount(boardservice.countBoard(page));
 		page.init();
 		List<Board> list = boardservice.selectBoard(page);
 		

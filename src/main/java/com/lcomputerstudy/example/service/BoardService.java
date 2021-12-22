@@ -31,7 +31,7 @@ public interface BoardService {
 
 	public void commentDelete(Board board);
 	
-	public int countBoard();
+	public int countBoard(Page page);
 	
 	public List<Board> selectBoard(Page page);
 	

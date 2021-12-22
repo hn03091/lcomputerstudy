@@ -65,8 +65,8 @@ public class BoardServicelmpl implements BoardService {
 		boardmapper.commentDelete(board);
 	}
 	@Override
-	public int countBoard() {
-		return boardmapper.countBoard();
+	public int countBoard(Page page) {
+		return boardmapper.countBoard(page);
 	}
 	@Override
 	public List<Board> selectBoard(Page page){
