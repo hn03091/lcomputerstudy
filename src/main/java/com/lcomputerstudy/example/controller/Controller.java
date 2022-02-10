@@ -35,10 +35,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.BoardFile;
+import com.lcomputerstudy.example.domain.Item;
 import com.lcomputerstudy.example.domain.Page;
 import com.lcomputerstudy.example.domain.Search;
+import com.lcomputerstudy.example.domain.Top;
 import com.lcomputerstudy.example.domain.User;
 import com.lcomputerstudy.example.service.BoardService;
+import com.lcomputerstudy.example.service.ItemService;
 import com.lcomputerstudy.example.service.UserService;
 
 /*
@@ -55,7 +58,61 @@ public class Controller {
 	BoardService boardservice;
 	@Autowired
 	UserService userservice;
-
+	@Autowired
+	ItemService itemservice;
+	
+	@Secured({ "ROLE_ADMIN" })			//관리자 페이지
+	@RequestMapping(value = "/admin")
+	public String admin(Model model) {
+		return "/admin";
+	}
+	
+	@RequestMapping("/itemset")	//분류관리 메인
+	public String itemset(Model model) {
+		
+		List<Item> itemList=itemservice.getItemList();
+		model.addAttribute("itemList", itemList);
+		
+		
+		return "/itemset";
+	}
+	
+	@RequestMapping("/itemsetwrite") //카테고리 등록
+	public String itemsetwrite(Model model,Item item,Top top) {
+		/*String Iidx=item.getI_idx();
+		int idx = Integer.parseInt(Iidx); 
+		if(idx == 10) {			
+			List<Top> topList=itemservice.detailTopList();
+			model.addAttribute("topList", topList);
+		}else if(idx == 20){
+			System.out.println("pants");
+		}*/
+		return "/itemsetwrite";
+	}
+	
+	@RequestMapping("/itemsetwriteProcess") //카테고리 프로세스
+	public String itemsetwriteProcess(Model model,Item item) {
+		//top.setI_idx("10");
+		//itemservice.topInsert(top);
+		
+		itemservice.itemInsert(item);
+		
+		
+		return "/itemsetwriteProcess";
+	}
+	
+	@RequestMapping("/itemList")	//상품관리 메인
+	public String itemList(Model model) {
+		
+		return "/itemList";
+	}
+	@RequestMapping("/itemwrite") //상품등록
+	public String itemwrite(Model model){
+		List<Item> itemList=itemservice.getItemList();
+		
+		model.addAttribute("itemList", itemList);
+		return "/itemwrite";
+	}
 	@RequestMapping("/")
 	public String home(Model model, Page page, Board board,Search search) {
 		page.setCount(boardservice.countBoard(page));
@@ -77,25 +134,7 @@ public class Controller {
 		return user.getuName();
 
 	}
-	/*@RequestMapping("/pageboard")
-	public String pageboard(Page page, Model model 
-			,@RequestParam(value="nowPage", required=false)String nowPage
-			,@RequestParam(value="cntPerPage", required=false)String cntPerPage) {
-		
-		int total = boardservice.countBoard();
-		if (nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "5";
-		} else if (nowPage == null) {
-			nowPage = "1";
-		} else if (cntPerPage == null) { 
-			cntPerPage = "5";
-		}
-		page = new Page(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-		model.addAttribute("page", page);
-		model.addAttribute("viewAll", boardservice.selectBoard(page));
-		return "/pageboard";
-	}*/
+	
 
 	@RequestMapping("/boardwrite")
 	public String write(Model model) {
@@ -318,11 +357,7 @@ public class Controller {
 		return "/login";
 	}
 
-	@Secured({ "ROLE_ADMIN" })
-	@RequestMapping(value = "/admin")
-	public String admin(Model model) {
-		return "/admin";
-	}
+	
 
 	@Secured({ "ROLE_USER" })
 	@RequestMapping(value = "/user/info")
