@@ -97,17 +97,28 @@ ul.myMenu>li ul.submenu>li:hover {
  <table>
       <thead>
         <tr>
-          <th>분류코드</th><th>상품명</th>
+          <th>분류코드</th><th>상품명</th><th>관리</th>
         </tr>
       </thead>
       <tbody>
       		<c:forEach var="item" items="${itemList}">
 			<tr>
+				
 				<td>${item.i_idx}</td>
 				<td>${item.i_name }</td>
+				<td>
 				
-			
-			
+				<form action="/itemsetUpdate" method="post">
+				<input type="hidden" name="i_idx" value="${item.i_idx}">
+				<button type="submit">수정</button>
+				</form>
+				<form action="/itemsetDelete" method="post">
+				<input type="hidden" name="i_idx" value="${item.i_idx}">
+				<button type="submit">삭제</button>
+				</form>
+				
+				</td>
+				
 
 			</tr>
 		</c:forEach>

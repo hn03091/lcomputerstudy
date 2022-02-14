@@ -2,17 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lcomputerstudy.example.mapper.ItemMapper">
 	<select id="getItemList" resultType ="Item">
-	SELECT 		*
-	FROM 		Item
-	
-	</select>
-	
-	<select id="detailTopList" resultType="Top">
-		SELECT i_idx,top_idx,name
-		FROM top
-
+		SELECT 		*
+		FROM 		Item
 		
 	</select>
+	<select id="itemsetDetail" resultType ="Item">
+		SELECT	*
+		FROM	item
+		WHERE	i_idx=#{i_idx}
+	</select>
+	
+	<resultMap id="itemResult" type="Item">
+		<id property="i_idx"			column="i_idx"/>
+		<result property="i_name"		column="i_name"/>
+		<result property="i_content"		column="i_content"/>
+		<result property="i_date"	column="i_date"/>
+		<result property="i_price" column="i_price"/>
+		
+		<collection property="comments" ofType="Comment">
+			<id property="c_no"			column="c_no"/>
+			<result property="i_idx"			column="i_idx"/>
+			<result property="c_content"	column="c_content"/>
+			<result property="c_writer"		column="c_writer"/>
+			<result property="c_date"		column="c_date"/>
+		</collection>
+		 
+		<collection property="boardFiles" ofType="BoardFile">
+			<id property="bfIdx"			column="bf_idx"/>
+			<result property="i_idx"			column="i_idx"/>
+			<result property="fileName"		column="fileName"/>
+		</collection>
+		
+	</resultMap>
+	
+	<select id="itemdetail" resultMap="itemResult">
+		SELECT		*
+		FROM		item ta
+		LEFT JOIN 	comment tb ON ta.i_idx = tb.i_idx
+		LEFT JOIN	file tc ON ta.i_idx = tc.i_idx
+		WHERE		ta.i_idx = #{i_idx}
+	</select>
+	
 	<insert id="itemInsert" parameterType="Item">
 		INSERT INTO item(
 			i_idx,
@@ -23,20 +53,35 @@
 		)
 		
 	</insert>
-	<insert id="topInsert" parameterType="Top">
-		INSERT INTO top(
+
+	<insert id="itemwriteInsert" parameterType="Item">
+		INSERT INTO item(
 			i_idx,
-			top_idx,
-			name
-			
+			i_name,
+			i_content,
+			i_date
 		)VALUES(
-		    #{i_idx},
-		    #{top_idx},
-		    #{name}
-		
+			#{i_idx},
+			#{i_name},
+			#{i_content},
+			#{i_date}
 		)
 	</insert>
-
+	
+	<insert id="fileNames" parameterType="Item">	
+		INSERT INTO file(i_idx, fileName)
+		VALUES
+		<foreach item="item" collection="fileNames" separator= ",">
+			(#{i_idx},#{item})
+		</foreach>
+		
+	</insert>
+	<insert id="itemsetDelete" parameterType="Item">
+		DELETE 
+		FROM Item
+		WHERE i_idx = #{i_idx}
+		
+	</insert>
 
 
 

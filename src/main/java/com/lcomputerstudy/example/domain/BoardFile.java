@@ -9,7 +9,16 @@ public class BoardFile {
 	private int bId;
 	private String fileName;
 	private List<MultipartFile> files;
+	private int i_idx;
 	
+	
+	
+	public int getI_idx() {
+		return i_idx;
+	}
+	public void setI_idx(int i_idx) {
+		this.i_idx = i_idx;
+	}
 	public int getBfIdx() {
 		return bfIdx;
 	}

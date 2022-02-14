@@ -38,7 +38,7 @@ import com.lcomputerstudy.example.domain.BoardFile;
 import com.lcomputerstudy.example.domain.Item;
 import com.lcomputerstudy.example.domain.Page;
 import com.lcomputerstudy.example.domain.Search;
-import com.lcomputerstudy.example.domain.Top;
+
 import com.lcomputerstudy.example.domain.User;
 import com.lcomputerstudy.example.service.BoardService;
 import com.lcomputerstudy.example.service.ItemService;
@@ -66,7 +66,29 @@ public class Controller {
 	public String admin(Model model) {
 		return "/admin";
 	}
-	
+	@RequestMapping("/")
+	public String home(Model model, Page page, Board board,Search search,Item item) {
+		page.setCount(boardservice.countBoard(page));
+		page.init();
+		List<Board> list = boardservice.selectBoard(page);
+		List<Item> itemList = itemservice.getItemList();
+		
+		
+		model.addAttribute("itemList", itemList);
+		model.addAttribute("list", list);
+		logger.debug("debug");
+		logger.info("info");
+		logger.error("error");
+
+		return "/index";
+	}
+	@RequestMapping("/itemdetail") //상품 상세보기
+	public String itemdetail(Model model,BoardFile boardfile,Item item) {
+		
+		item =itemservice.itemdetail(item);
+		model.addAttribute(item);
+		return "/itemdetail";
+	}
 	@RequestMapping("/itemset")	//분류관리 메인
 	public String itemset(Model model) {
 		
@@ -78,23 +100,28 @@ public class Controller {
 	}
 	
 	@RequestMapping("/itemsetwrite") //카테고리 등록
-	public String itemsetwrite(Model model,Item item,Top top) {
-		/*String Iidx=item.getI_idx();
-		int idx = Integer.parseInt(Iidx); 
-		if(idx == 10) {			
-			List<Top> topList=itemservice.detailTopList();
-			model.addAttribute("topList", topList);
-		}else if(idx == 20){
-			System.out.println("pants");
-		}*/
+	public String itemsetwrite(Model model,Item item) {
+		
 		return "/itemsetwrite";
+	}
+	@RequestMapping("/itemsetUpdate") //카테고리 수정
+	public String itemsetUpdate(Model model,Item item) {
+		item =itemservice.itemsetDetail(item);
+		
+		model.addAttribute(item);
+		
+		return "/itemsetUpdate";
+	}
+	@RequestMapping("/itemsetDelete") //카테고리삭제
+	public String itemsetDelete(Item item) {
+		itemservice.itemsetDelete(item);
+		return "/itemsetDelete";
+		
 	}
 	
 	@RequestMapping("/itemsetwriteProcess") //카테고리 프로세스
 	public String itemsetwriteProcess(Model model,Item item) {
-		//top.setI_idx("10");
-		//itemservice.topInsert(top);
-		
+	
 		itemservice.itemInsert(item);
 		
 		
@@ -113,20 +140,68 @@ public class Controller {
 		model.addAttribute("itemList", itemList);
 		return "/itemwrite";
 	}
-	@RequestMapping("/")
-	public String home(Model model, Page page, Board board,Search search) {
-		page.setCount(boardservice.countBoard(page));
-		page.init();
-		List<Board> list = boardservice.selectBoard(page);
+	@RequestMapping("/itemwriteProcess") //상품 등록 프로세스
+	public String itemwriteProcess( BoardFile boardFile,Item item, Authentication authentication, Model model) throws IOException {
+		Date nowTime = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String nowTimeStr = date.format(nowTime);
+		
+	
+		List<String> SavefileNames = new ArrayList<String>();
+		List<MultipartFile> files = boardFile.getFiles();		
+		String path = "C:\\Users\\l2-morning\\Documents\\work10\\lcomputerstudy\\src\\main\\resources\\static\\image";
+		
+		for (MultipartFile file : files) {
+		      if (!file.getOriginalFilename().isEmpty()) { // 업로드 파일 존재 확인
+		        String saveFileName = System.nanoTime() + file.getOriginalFilename(); //저장 파일명
+		        
+		         BufferedOutputStream outputStream = new BufferedOutputStream(
+			               new FileOutputStream(
+			                     new File(path +"/" +saveFileName)));
+		        
+		            
+		         outputStream.write(file.getBytes());
+		         outputStream.flush();
+		         outputStream.close();		         
+		 
+		       
+		         
+		         
+		         String ext = saveFileName.substring(saveFileName.lastIndexOf(".")+1);
+		         String thumbPath = "C:\\Users\\l2-morning\\Documents\\work10\\lcomputerstudy\\src\\main\\resources\\static\\image\\thumb"; //이미지 미리보기 저장경로
+		        
+		         File nfile = new File(path + "/" +saveFileName);
+		         File thumbFile = new File(thumbPath + "/"+"thumb"+saveFileName ); //썸네일 파일
+		         BufferedImage imageBuf = ImageIO.read(nfile);
+		        	int fixWidth = 500;
+		        	double ratio = imageBuf.getWidth() / (double)fixWidth;
+					int thumbWidth = fixWidth;
+					int thumbHeight = (int)(imageBuf.getHeight() / ratio);
+					BufferedImage thumbImageBf = new BufferedImage(thumbWidth, thumbHeight, BufferedImage.TYPE_3BYTE_BGR);
+					Graphics2D g = thumbImageBf.createGraphics();
+					Image thumbImage = imageBuf.getScaledInstance(thumbWidth, thumbHeight, Image.SCALE_SMOOTH);
+					g.drawImage(thumbImage, 0, 0, thumbWidth, thumbHeight, null);
+					g.dispose();
+					ImageIO.write(thumbImageBf, ext, thumbFile);
+					String fileName = ("thumb"+saveFileName);
+					SavefileNames.add(fileName);
+		      } else {		        
+		         return "/itemwriteProcess";
+		      }
+		}
+		
+	
+		item.setI_date(nowTimeStr);
+		boardFile.setFiles(files);		
+		item.setFileNames(SavefileNames);
+		
+		itemservice.itemwriteInsert(item);
+		itemservice.fileNames(item);
 		
 		
-		model.addAttribute("list", list);
-		logger.debug("debug");
-		logger.info("info");
-		logger.error("error");
-
-		return "/index";
+		return "/itemwriteProcess";
 	}
+	
 
 	@ResponseBody
 	public String getUserName(Authentication authentication) {
@@ -320,7 +395,6 @@ public class Controller {
 		
 		
 		
-		//model.addAttribute("comments", commentlist);
 		model.addAttribute(board);
 
 		return "/boarddetail";

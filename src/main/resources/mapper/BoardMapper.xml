@@ -58,6 +58,8 @@
 		
 	</insert>
 	
+	
+	
 	<insert id="fileNames" parameterType="Board">	
 		INSERT INTO file(b_idx, fileName)
 		VALUES

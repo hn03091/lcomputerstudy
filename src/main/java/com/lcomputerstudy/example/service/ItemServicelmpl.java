@@ -20,16 +20,30 @@ public class ItemServicelmpl implements ItemService {
 		return itemmapper.getItemList();
 	}
 	
-	@Override
-	public List<Top> detailTopList(){
-		return itemmapper.detailTopList();
-	}
-	@Override
+	
+	@Override //카테고리 등록
 	public void itemInsert(Item item){
 		itemmapper.itemInsert(item);
 	}
-	@Override
-	public void topInsert(Top top) {
-		itemmapper.topInsert(top);
+	@Override //카테고리삭제
+	public void itemsetDelete(Item item) {
+		itemmapper.itemsetDelete(item);
+	}
+	@Override //카테고리 상세정보
+	public Item itemsetDetail(Item item){
+		return itemmapper.itemsetDetail(item);
+	}
+	
+	@Override //상품등록
+	public void itemwriteInsert(Item item) { 
+		itemmapper.itemwriteInsert(item);
+	}
+	@Override //상품 파일 등록
+	public void fileNames(Item item) {
+		itemmapper.fileNames(item);
+	} 
+	@Override //상품 상세 정보
+	public Item itemdetail(Item item) {
+		return itemmapper.itemdetail(item);
 	}
 }

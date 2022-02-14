@@ -26,10 +26,10 @@
 	<hr>
 	<font size="5em" color="green"> 상품 등록 </font>
 	<hr>
-	<form action="/itemprocess" method="post" enctype="multipart/form-data">
+	<form action="/itemwriteProcess" method="post" enctype="multipart/form-data">
 		<div>
 			<p>
-				상품명 : <input type="text" name="name">
+				상품명 : <input type="text" name="i_name">
 			
 		</div>
 		
@@ -44,7 +44,7 @@
 		<hr></hr>
 		
 		<div>
-			<textarea rows="10" cols="50" name="bContent"
+			<textarea rows="10" cols="50" name="i_content"
 				placeholder="상품 설명을 입력하세요"></textarea>
 
 		</div>
