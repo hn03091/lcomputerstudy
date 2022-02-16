@@ -26,12 +26,13 @@
 	<hr>
 	<font size="5em" color="green"> 카테고리 수정 </font>
 	<hr>
-	<form action="/itemsetUpdateProcess" method="post" enctype="multipart/form-data">
+	<form action="/midlesetUpdateProcess" method="post" enctype="multipart/form-data">
 		<div>
-				<p>분류 코드 : ${item.i_idx }</p>
-				<input type="hidden" name="i_idx" value="${item.i_idx}">
+				<p>대분류 코드 : ${mdItem.i_idx }</p>
+				<p>중분류 코드 : ${mdItem.m_idx }</p>
+				<input type="hidden" name="m_idx" value="${mdItem.m_idx}">
 
-				카테고리명 : <input type="text" name="i_name"placeholder="${item.i_name }">
+				카테고리명 : <input type="text" name="m_name"placeholder="${mdItem.m_name }">
 		</div>
 		<button type="submit">수정</button>
 	

@@ -11,6 +11,8 @@
 <title>Insert title here</title>
 </head>
 <style>
+
+
 table {
 	border-collapse: collapse;
 }
@@ -43,15 +45,13 @@ li {
 }
 </style>
 <body>
-	<h1>Hello World</h1>
+	<h1>BEOM SHOP</h1>
+	
+
 	<c:forEach var="itemList" items="${itemList }">
 			<td>${itemList.i_idx}</td>
-			<td>${itemList.i_name }</td>
-			<c:if test="${null != itemList.i_content }">
-			<td><a href="/itemdetail?i_idx=${itemList.i_idx }">상세보기</a></td>
-			</c:if> 
-			<p>
-		</c:forEach>
+			<td>${itemList.i_name }</td>		
+	</c:forEach>
 	<table>
 	
 

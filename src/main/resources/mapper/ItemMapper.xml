@@ -6,18 +6,47 @@
 		FROM 		Item
 		
 	</select>
+	
+	<select id="getMidleList" resultType="MidleItem">
+		SELECT	*
+		FROM	midleitem
+	</select>
+	
+	<select id="getProductList" resultType="Product">
+		SELECT	*
+		FROM	product
+	</select>
+	
+	
+	
 	<select id="itemsetDetail" resultType ="Item">
 		SELECT	*
 		FROM	item
 		WHERE	i_idx=#{i_idx}
 	</select>
 	
-	<resultMap id="itemResult" type="Item">
-		<id property="i_idx"			column="i_idx"/>
-		<result property="i_name"		column="i_name"/>
-		<result property="i_content"		column="i_content"/>
-		<result property="i_date"	column="i_date"/>
-		<result property="i_price" column="i_price"/>
+	<select id="midlesetDetail" resultType="MidleItem">
+		SELECT	*
+		FROM	midleitem
+		WHERE	m_idx=#{m_idx}
+	</select>
+	
+	
+	<select id="productsetDetail" resultType="Product">
+		SELECT		*
+		FROM		product ta
+		LEFT JOIN 	item tb ON ta.i_idx=tb.i_idx
+		LEFT join 	midleitem tc ON ta.m_idx=tc.m_idx
+		LEFT JOIN	file td ON ta.p_idx= td.p_idx
+		WHERE		ta.p_idx = #{p_idx}
+	</select>
+	
+	<resultMap id="productResult" type="Product">
+		<id property="p_idx"			column="p_idx"/>
+		<result property="p_name"		column="p_name"/>
+		<result property="p_content"		column="p_content"/>
+		<result property="p_date"	column="p_date"/>
+		<result property="p_price" column="p_price"/>
 		
 		<collection property="comments" ofType="Comment">
 			<id property="c_no"			column="c_no"/>
@@ -35,12 +64,12 @@
 		
 	</resultMap>
 	
-	<select id="itemdetail" resultMap="itemResult">
+	<select id="productdetail" resultMap="productResult">
 		SELECT		*
-		FROM		item ta
-		LEFT JOIN 	comment tb ON ta.i_idx = tb.i_idx
-		LEFT JOIN	file tc ON ta.i_idx = tc.i_idx
-		WHERE		ta.i_idx = #{i_idx}
+		FROM		product ta
+		LEFT JOIN 	comment tb ON ta.p_idx = tb.p_idx
+		LEFT JOIN	file tc ON ta.p_idx = tc.p_idx
+		WHERE		ta.p_idx = #{p_idx}
 	</select>
 	
 	<insert id="itemInsert" parameterType="Item">
@@ -53,34 +82,97 @@
 		)
 		
 	</insert>
-
-	<insert id="itemwriteInsert" parameterType="Item">
-		INSERT INTO item(
+	<insert id="midleitemInsert" parameterType="MidleItem">
+		INSERT INTO midleitem(
 			i_idx,
-			i_name,
-			i_content,
-			i_date
+			m_idx,
+			m_name
 		)VALUES(
 			#{i_idx},
-			#{i_name},
-			#{i_content},
-			#{i_date}
+			#{m_idx},
+			#{m_name}
+		)
+		
+	</insert>
+
+	<insert id="productInsert" parameterType="Product">
+		INSERT INTO product(
+			i_idx,
+			m_idx,
+			p_idx,
+			p_name,
+			p_content,
+			p_date,
+			p_price
+		)VALUES(
+			#{i_idx},
+			#{m_idx},
+			#{p_idx},
+			#{p_name},
+			#{p_content},
+			#{p_date},
+			#{p_price}
 		)
 	</insert>
 	
-	<insert id="fileNames" parameterType="Item">	
-		INSERT INTO file(i_idx, fileName)
+
+	<insert id="fileNames" parameterType="Product">	
+		INSERT INTO file(p_idx, fileName)
 		VALUES
 		<foreach item="item" collection="fileNames" separator= ",">
-			(#{i_idx},#{item})
+			(#{p_idx},#{item})
 		</foreach>
 		
 	</insert>
+	<insert id="itemsetUpdate" parameterType="Item">
+		UPDATE Item
+		SET
+			i_name =#{i_name}
+			
+		WHERE i_idx = #{i_idx}
+	</insert>
+	
 	<insert id="itemsetDelete" parameterType="Item">
 		DELETE 
 		FROM Item
 		WHERE i_idx = #{i_idx}
 		
+	</insert>
+	<insert id="midlesetUpdate" parameterType="MidleItem">
+		UPDATE midleitem
+		SET
+			
+			m_name = #{m_name}
+		WHERE m_idx=#{m_idx}
+	</insert>
+	<insert id ="midlesetDelete" parameterType="MidleItem">
+		DELETE
+		FROM midleitem
+		WHERE m_idx = #{m_idx}
+	</insert>
+	
+	<insert id="productsetUpdate" parameterType="Product">
+		UPDATE product
+		SET
+			p_name = #{p_name},
+			p_content = #{p_content},
+			p_date = #{p_date},
+			p_price =#{p_price}
+			
+		WHERE p_idx=#{p_idx}
+	</insert>
+	
+	<insert id="productfileDelete" parameterType="BoardFile">
+		DELETE 
+		FROM file
+		WHERE bf_idx = #{bfIdx}
+	</insert>
+	
+	<insert id ="productsetDelete" parameterType="Product">
+		DELETE ta.*, tb.*
+		FROM product ta 
+		LEFT JOIN file tb ON ta.p_idx = tb.p_idx
+		WHERE ta.p_idx = #{p_idx}
 	</insert>
 
 

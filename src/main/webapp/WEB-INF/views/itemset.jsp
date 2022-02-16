@@ -86,7 +86,7 @@ ul.myMenu>li ul.submenu>li:hover {
 				<ul class="menu3_s submenu">
 					<li>주문 내역</li>
 					<li><a href="/itemset">분류 관리</a></li>
-					<li><a href="/itemList">상품 관리</a></li>
+					<li><a href="/productset">상품 관리</a></li>
 				</ul>
 			</li>
 			<li class="menu4">메뉴 4</li>
@@ -97,7 +97,7 @@ ul.myMenu>li ul.submenu>li:hover {
  <table>
       <thead>
         <tr>
-          <th>분류코드</th><th>상품명</th><th>관리</th>
+          <th>대분류코드</th><th>상품명</th><th>관리</th>
         </tr>
       </thead>
       <tbody>
@@ -107,6 +107,7 @@ ul.myMenu>li ul.submenu>li:hover {
 				<td>${item.i_idx}</td>
 				<td>${item.i_name }</td>
 				<td>
+				
 				
 				<form action="/itemsetUpdate" method="post">
 				<input type="hidden" name="i_idx" value="${item.i_idx}">
@@ -126,7 +127,43 @@ ul.myMenu>li ul.submenu>li:hover {
       </tbody>
     </table>
     	
-<a href="/itemsetwrite">새로운 카테고리 등록</a>
+<a href="/itemsetwrite">새로운 대분류 카테고리 등록</a>
+<p>
+<hr>
+<p>
+<table>
+      <thead>
+        <tr>
+          <th>대분류코드</th><th>중분류코드</th><th>상품명</th><th>관리</th>
+        </tr>
+      </thead>
+      <tbody>
+      		<c:forEach var="md" items="${midleList}">
+			<tr>
+				<td>${md.i_idx }</td>
+				<td>${md.m_idx}</td>
+				<td>${md.m_name }</td>
+				<td>
+				
+				
+				<form action="/midlesetUpdate" method="post">
+				<input type="hidden" name="m_idx" value="${md.m_idx}">
+				<button type="submit">수정</button>
+				</form>
+				<form action="/midlesetDelete" method="post">
+				<input type="hidden" name="m_idx" value="${md.m_idx}">
+				<button type="submit">삭제</button>
+				</form>
+				
+				</td>
+				
+
+			</tr>
+		</c:forEach>
+		
+      </tbody>
+    </table>
+<a href="/midleitemsetwrite">새로운 중분류 카테고리 등록</a>
 <hr>
 
 

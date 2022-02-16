@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>수정완료</title>
 </head>
 <body>
-<a href="/itemwrite">돌아가기</a>
+<a href="/itemset">돌아가기</a>
 </body>
 </html>

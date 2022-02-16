@@ -36,7 +36,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.BoardFile;
 import com.lcomputerstudy.example.domain.Item;
+import com.lcomputerstudy.example.domain.MidleItem;
 import com.lcomputerstudy.example.domain.Page;
+import com.lcomputerstudy.example.domain.Product;
 import com.lcomputerstudy.example.domain.Search;
 
 import com.lcomputerstudy.example.domain.User;
@@ -83,43 +85,32 @@ public class Controller {
 		return "/index";
 	}
 	@RequestMapping("/itemdetail") //상품 상세보기
-	public String itemdetail(Model model,BoardFile boardfile,Item item) {
+	public String itemdetail(Model model,BoardFile boardfile,Product product) {
 		
-		item =itemservice.itemdetail(item);
-		model.addAttribute(item);
+		product =itemservice.productdetail(product);
+		model.addAttribute(product);
 		return "/itemdetail";
 	}
 	@RequestMapping("/itemset")	//분류관리 메인
 	public String itemset(Model model) {
 		
 		List<Item> itemList=itemservice.getItemList();
+		List<MidleItem> midleList= itemservice.getMidleList();
+				
 		model.addAttribute("itemList", itemList);
-		
+		model.addAttribute("midleList", midleList);
 		
 		return "/itemset";
 	}
 	
-	@RequestMapping("/itemsetwrite") //카테고리 등록
+	@RequestMapping("/itemsetwrite") //대분류 카테고리 등록
 	public String itemsetwrite(Model model,Item item) {
+		List<Item> itemList=itemservice.getItemList();
+		model.addAttribute("itemList", itemList);
 		
 		return "/itemsetwrite";
 	}
-	@RequestMapping("/itemsetUpdate") //카테고리 수정
-	public String itemsetUpdate(Model model,Item item) {
-		item =itemservice.itemsetDetail(item);
-		
-		model.addAttribute(item);
-		
-		return "/itemsetUpdate";
-	}
-	@RequestMapping("/itemsetDelete") //카테고리삭제
-	public String itemsetDelete(Item item) {
-		itemservice.itemsetDelete(item);
-		return "/itemsetDelete";
-		
-	}
-	
-	@RequestMapping("/itemsetwriteProcess") //카테고리 프로세스
+	@RequestMapping("/itemsetwriteProcess") //대분류 카테고리 등록 프로세스
 	public String itemsetwriteProcess(Model model,Item item) {
 	
 		itemservice.itemInsert(item);
@@ -128,20 +119,86 @@ public class Controller {
 		return "/itemsetwriteProcess";
 	}
 	
-	@RequestMapping("/itemList")	//상품관리 메인
-	public String itemList(Model model) {
+	@RequestMapping("/itemsetUpdate") //대분류 카테고리 수정
+	public String itemsetUpdate(Model model,Item item) {
+		item =itemservice.itemsetDetail(item);
 		
-		return "/itemList";
+		model.addAttribute(item);
+		
+		return "/itemsetUpdate";
 	}
-	@RequestMapping("/itemwrite") //상품등록
-	public String itemwrite(Model model){
+	@RequestMapping("/itemsetUpdateProcess") //대분류 카테고리 수정 프로세스
+	public String itemsetUpdateProcess(Model model,Item item) {
+		itemservice.itemsetUpdate(item);
+		
+		return "/itemsetUpdateProcess";
+	}
+	
+	@RequestMapping("/itemsetDelete") //대분류 카테고리삭제
+	public String itemsetDelete(Item item) {
+		itemservice.itemsetDelete(item);
+		return "/itemsetDelete";
+		
+	}
+	
+	
+	@RequestMapping("/midleitemsetwrite") //중분류 카테고리 등록
+	public String midleitemsetwrite(Model model,MidleItem midleItem) {
 		List<Item> itemList=itemservice.getItemList();
+		model.addAttribute("itemList", itemList);
+		
+		return "/midleitemsetwrite";
+	}
+	@RequestMapping("/mdwriteProcess") //중분류 카테고리 등록 프로세스
+	public String mdwriteProcess(Model model,MidleItem mdItem) {
+		String iIdx=mdItem.getI_idx();
+		String mIdx=mdItem.getM_idx();
+		String midleIdx=iIdx + mIdx;
+		mdItem.setM_idx(midleIdx);
+		
+		itemservice.midleitemInsert(mdItem);
+		return "/midleitemwriteProcess";
+	}
+	@RequestMapping("/midlesetUpdate") //중분류 카테고리 수정
+	public String midlesetUpdate(Model model,MidleItem mdItem) {
+		mdItem=itemservice.midlesetDetail(mdItem);
+		
+		model.addAttribute("mdItem" ,mdItem);
+		
+		return "/midlesetUpdate";
+	}
+	@RequestMapping("/midlesetUpdateProcess") //대분류 카테고리 수정 프로세스
+	public String midlesetUpdateProcess(Model model,MidleItem mdItem) {
+		itemservice.midlesetUpdate(mdItem);
+		
+		return "/midlesetUpdateProcess";
+	}
+	@RequestMapping("/midlesetDelete") //중분류 카테고리 삭제
+	public String midlesetDelete(MidleItem mdItem) {
+		
+		itemservice.midlesetDelete(mdItem);
+		
+		return "/midlesetDelete";
+	}
+	@RequestMapping("/productset")	//상품관리 메인
+	public String productset(Model model) {
+		List<Product> pdList=itemservice.getProductList();
+		
+		model.addAttribute("pdList", pdList);
+		
+		return "/productset";
+	}
+	@RequestMapping("/productwrite") //상품등록
+	public String productwrite(Model model){
+		List<Item> itemList=itemservice.getItemList();
+		List<MidleItem> midleList= itemservice.getMidleList();
 		
 		model.addAttribute("itemList", itemList);
-		return "/itemwrite";
+		model.addAttribute("midleList", midleList);
+		return "/productwrite";
 	}
-	@RequestMapping("/itemwriteProcess") //상품 등록 프로세스
-	public String itemwriteProcess( BoardFile boardFile,Item item, Authentication authentication, Model model) throws IOException {
+	@RequestMapping("/productProcess") //상품 등록 프로세스
+	public String productProcess( BoardFile boardFile,Product product, Authentication authentication, Model model) throws IOException {
 		Date nowTime = new Date();
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String nowTimeStr = date.format(nowTime);
@@ -186,20 +243,112 @@ public class Controller {
 					String fileName = ("thumb"+saveFileName);
 					SavefileNames.add(fileName);
 		      } else {		        
-		         return "/itemwriteProcess";
+		         return "/productProcess";
 		      }
 		}
 		
 	
-		item.setI_date(nowTimeStr);
+		product.setP_date(nowTimeStr);
 		boardFile.setFiles(files);		
-		item.setFileNames(SavefileNames);
-		
-		itemservice.itemwriteInsert(item);
-		itemservice.fileNames(item);
+		product.setFileNames(SavefileNames);
 		
 		
-		return "/itemwriteProcess";
+		String mIdx=product.getM_idx();
+		String pIdx=product.getP_idx();
+		
+		String p_idx=mIdx+pIdx;
+		product.setP_idx(p_idx);
+		
+		itemservice.productInsert(product);
+		itemservice.fileNames(product);
+		
+		
+		return "/productProcess";
+	}
+	@RequestMapping("/productsetUpdate") //상품 수정
+	public String productsetUpdate(Model model,Product product) {
+		product=itemservice.productsetDetail(product);
+		
+		model.addAttribute("product", product);
+		
+		return "/productsetUpdate";
+	}
+	@RequestMapping("/productsetUpdateProcess") //상품 수정 프로세스
+	public String productsetUpdateProcess(BoardFile boardFile,Product product, Authentication authentication, Model model) throws IOException {
+		Date nowTime = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String nowTimeStr = date.format(nowTime);
+		
+	
+		List<String> SavefileNames = new ArrayList<String>();
+		List<MultipartFile> files = boardFile.getFiles();		
+		String path = "C:\\Users\\l2-morning\\Documents\\work10\\lcomputerstudy\\src\\main\\resources\\static\\image";
+		
+		for (MultipartFile file : files) {
+		      if (!file.getOriginalFilename().isEmpty()) { // 업로드 파일 존재 확인
+		        String saveFileName = System.nanoTime() + file.getOriginalFilename(); //저장 파일명
+		        
+		         BufferedOutputStream outputStream = new BufferedOutputStream(
+			               new FileOutputStream(
+			                     new File(path +"/" +saveFileName)));
+		        
+		            
+		         outputStream.write(file.getBytes());
+		         outputStream.flush();
+		         outputStream.close();		         
+		 
+		       
+		         
+		         
+		         String ext = saveFileName.substring(saveFileName.lastIndexOf(".")+1);
+		         String thumbPath = "C:\\Users\\l2-morning\\Documents\\work10\\lcomputerstudy\\src\\main\\resources\\static\\image\\thumb"; //이미지 미리보기 저장경로
+		        
+		         File nfile = new File(path + "/" +saveFileName);
+		         File thumbFile = new File(thumbPath + "/"+"thumb"+saveFileName ); //썸네일 파일
+		         BufferedImage imageBuf = ImageIO.read(nfile);
+		        	int fixWidth = 500;
+		        	double ratio = imageBuf.getWidth() / (double)fixWidth;
+					int thumbWidth = fixWidth;
+					int thumbHeight = (int)(imageBuf.getHeight() / ratio);
+					BufferedImage thumbImageBf = new BufferedImage(thumbWidth, thumbHeight, BufferedImage.TYPE_3BYTE_BGR);
+					Graphics2D g = thumbImageBf.createGraphics();
+					Image thumbImage = imageBuf.getScaledInstance(thumbWidth, thumbHeight, Image.SCALE_SMOOTH);
+					g.drawImage(thumbImage, 0, 0, thumbWidth, thumbHeight, null);
+					g.dispose();
+					ImageIO.write(thumbImageBf, ext, thumbFile);
+					String fileName = ("thumb"+saveFileName);
+					SavefileNames.add(fileName);
+		      } else {		        
+		         return "/productProcess";
+		      }
+		}
+		
+	
+		product.setP_date(nowTimeStr);
+		boardFile.setFiles(files);		
+		product.setFileNames(SavefileNames);
+		
+		itemservice.productsetUpdate(product);
+		itemservice.fileNames(product);
+		
+		
+		return "/productsetUpdateProcess";
+	}
+	@RequestMapping("/productfiledelete")//수정시 파일 삭제
+	public String productfiledelete(Product product,BoardFile boardfile) {
+		
+		itemservice.productfileDelete(boardfile);
+		
+		return "/productfiledelete";
+	}
+	@RequestMapping("/productsetDelete") //상품 삭제
+	public String productsetDelete(Product product) {
+		
+		itemservice.productsetDelete(product);
+		
+		
+		
+		return "/productsetDelete";
 	}
 	
 

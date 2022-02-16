@@ -26,25 +26,23 @@
 	<hr>
 	<font size="5em" color="green"> 카테고리 등록 </font>
 	<hr>
-	대분류코드
-	<p></p>
+	대분류 코드
+	<p>
 	<c:forEach var="item" items="${itemList}">
-			<tr>
-				
+			<tr>				
 				<td>${item.i_idx}</td>
 				<td>${item.i_name }</td>
 				<p></p>
-				
-
 			</tr>
-		</c:forEach>
-		<hr>
-	<form action="/itemsetwriteProcess" method="post" enctype="multipart/form-data">
+	</c:forEach>
+	<form action="/mdwriteProcess" method="post" enctype="multipart/form-data">
 		<div>
-				대분류코드 : <input type="text" name="i_idx"placeholder="10의 단위로 입력해주세요">
-				<p></p>
+				대분류코드 : <input type="text" name="i_idx"placeholder="대분류 코드 확인후 입력">
+				<p>
+				중분류코드 : <input type="text" name="m_idx"placeholder="10의 단위로 입력해주세요">
+				<p>
 				
-				카테고리명 : <input type="text" name="i_name"placeholder="영어로 입력 해주세요">
+				카테고리명 : <input type="text" name="m_name"placeholder="영어로 입력 해주세요">
 		</div>
 		<button type="submit">작성</button>
 	

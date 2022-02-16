@@ -26,25 +26,36 @@
 	<hr>
 	<font size="5em" color="green"> 상품 등록 </font>
 	<hr>
-	<form action="/itemwriteProcess" method="post" enctype="multipart/form-data">
+	<form action="/productProcess" method="post" enctype="multipart/form-data">
 		<div>
 			<p>
-				상품명 : <input type="text" name="i_name">
+				상품명 : <input type="text" name="p_name">
 			
 		</div>
 		
 	
+		
+		<p>	대분류코드 : <input type="text" name="i_idx">
+		
 		<c:forEach var="itemList" items="${itemList }">
+			<p>
 			<td>${itemList.i_idx}</td>
 			<td>${itemList.i_name }</td>
 			<p>
 		</c:forEach>
-		
-		<p>	분류코드 : <input type="text" name="i_idx">
+		<p> 중분류코드 : <input type="text" name="m_idx">
+		<c:forEach var="md" items="${midleList }">
+			<p>
+			<td>${md.m_idx}</td>
+			<td>${md.m_name }</td>
+			<p>
+		</c:forEach>
+		<p> 상품코드 : <input type="text" name="p_idx">
+		<p> 상품가격 : <input type="text" name="p_price"> 원
 		<hr></hr>
 		
 		<div>
-			<textarea rows="10" cols="50" name="i_content"
+			<textarea rows="10" cols="50" name="p_content"
 				placeholder="상품 설명을 입력하세요"></textarea>
 
 		</div>
@@ -55,7 +66,7 @@
 
 		<button type="submit">작성</button>
 		<hr>
-		<a href="/itemList">돌아가기</a>
+		<a href="/productset">돌아가기</a>
 
 	</form>
 

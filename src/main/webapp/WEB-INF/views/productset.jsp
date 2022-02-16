@@ -8,6 +8,15 @@
 
 <meta charset="UTF-8">
 <style>
+ table {
+    width: 70%;
+    border: 1px solid #444444;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #444444;
+  }
+
 ul, ol, li {
 	list-style: none;
 	margin: 0;
@@ -77,7 +86,7 @@ ul.myMenu>li ul.submenu>li:hover {
 				<ul class="menu3_s submenu">
 					<li>주문 내역</li>
 					<li><a href="/itemset">분류 관리</a></li>
-					<li><a href="/itemList">상품 관리</a></li>
+					<li><a href="/productset">상품 관리</a></li>
 				</ul>
 			</li>
 			<li class="menu4">메뉴 4</li>
@@ -86,9 +95,42 @@ ul.myMenu>li ul.submenu>li:hover {
 	</div>
 <hr>
 
-<a href="/itemwrite">상품 등록</a>
-<hr>
 상품 목록
+ <table>
+      <thead>
+        <tr>
+          <th>분류코드</th><th>상품명</th><th>가격</th><th>관리</th>
+        </tr>
+      </thead>
+      <tbody>
+      		<c:forEach var="pd" items="${pdList}">
+			<tr>
+				
+				<td>${pd.p_idx}</td>
+				<td>${pd.p_name }</td>
+				<td>${pd.p_price }원</td>
+				<td>
+				
+				
+				<form action="/productsetUpdate" method="post">
+				<input type="hidden" name="p_idx" value="${pd.p_idx}">
+				<button type="submit">수정</button>
+				</form>
+				<form action="/productsetDelete" method="post">
+				<input type="hidden" name="p_idx" value="${pd.p_idx}">
+				<button type="submit">삭제</button>
+				</form>
+				
+				</td>
+				
+
+			</tr>
+		</c:forEach>
+		
+      </tbody>
+    </table>
+<a href="/productwrite">상품 등록</a>
+
 
 </body>
 </html>
