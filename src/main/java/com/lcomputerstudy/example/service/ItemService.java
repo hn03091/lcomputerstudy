@@ -47,6 +47,7 @@ public interface ItemService {
 	
 	public void productfileDelete(BoardFile boardfile); //상품 이미지 파일 삭제
 	
+	public List<Product> productsetfileUpdate(Product product); // 상품 이미지만 불러오기
 	
 	public Product productdetail(Product product); //상품 상세정보
 }

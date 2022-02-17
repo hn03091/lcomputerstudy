@@ -27,14 +27,13 @@
 	<font size="5em" color="green"> 상품 수정 </font>
 	<hr>
 	<p>
-			<img src="/image/thumb/${product.fileName }">
+		<!-- 	<img src="/image/thumb/${product.fileName }">
 		</p>
 		${product.bf_idx }
-				
-				<button id="btn_add" value="${product.bf_idx }" onclick="window.open('productfiledelete','window_name','width=430,height=500,location=no,status=no,scrollbars=yes');">이미지 파일 삭제</button>
-		
+			 -->	
 
 	
+		<a href="/productsetfileUpdate/?p_idx=${product.p_idx}" target='_blank'>이미지 수정하기</a>
 		<hr>
 	
 	<form action="/productsetUpdateProcess" method="post" enctype="multipart/form-data">

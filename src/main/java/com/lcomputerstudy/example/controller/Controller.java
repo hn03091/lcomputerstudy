@@ -20,6 +20,7 @@ import org.apache.taglibs.standard.tag.common.fmt.SetBundleSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigFileApplicationListener;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -273,13 +274,18 @@ public class Controller {
 		
 		return "/productsetUpdate";
 	}
-	@RequestMapping("/productsetUpdateProcess") //상품 수정 프로세스
-	public String productsetUpdateProcess(BoardFile boardFile,Product product, Authentication authentication, Model model) throws IOException {
-		Date nowTime = new Date();
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String nowTimeStr = date.format(nowTime);
+	@RequestMapping("/productsetfileUpdate")
+	public String productsetfileUpdate(Model model,Product product){
 		
-	
+		List<Product> fileList = itemservice.productsetfileUpdate(product);
+		model.addAttribute("fileList",fileList);
+		
+		return "/productsetfileUpdate";
+	}
+	@RequestMapping("/productsetfileUpdateProcess")// 이미지 등록 프로세스
+	public String productsetfileUpdateProcess(Model model,Product product, Authentication authentication,BoardFile boardFile) throws IOException {
+		
+		
 		List<String> SavefileNames = new ArrayList<String>();
 		List<MultipartFile> files = boardFile.getFiles();		
 		String path = "C:\\Users\\l2-morning\\Documents\\work10\\lcomputerstudy\\src\\main\\resources\\static\\image";
@@ -319,14 +325,31 @@ public class Controller {
 					String fileName = ("thumb"+saveFileName);
 					SavefileNames.add(fileName);
 		      } else {		        
-		         return "/productProcess";
+		         return "/productsetfileUpdateProcess";
 		      }
+		      
 		}
+		boardFile.setFiles(files);		
+		product.setFileNames(SavefileNames);
+
+		itemservice.fileNames(product);
+		
+		return "/productsetfileUpdateProcess";
+	}
+	@RequestMapping("/productfileDelete")
+	public String productfileDelete(BoardFile boardfile) {
+		
+		itemservice.productfileDelete(boardfile);
+		return "/productfileDelete";
+	}
+	@RequestMapping("/productsetUpdateProcess") //상품 수정 프로세스
+	public String productsetUpdateProcess(Product product, Model model){
+		Date nowTime = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String nowTimeStr = date.format(nowTime);
 		
 	
 		product.setP_date(nowTimeStr);
-		boardFile.setFiles(files);		
-		product.setFileNames(SavefileNames);
 		
 		itemservice.productsetUpdate(product);
 		itemservice.fileNames(product);
@@ -334,7 +357,7 @@ public class Controller {
 		
 		return "/productsetUpdateProcess";
 	}
-	@RequestMapping("/productfiledelete")//수정시 파일 삭제
+	@RequestMapping("/productfiledelete") //수정시 파일 삭제
 	public String productfiledelete(Product product,BoardFile boardfile) {
 		
 		itemservice.productfileDelete(boardfile);

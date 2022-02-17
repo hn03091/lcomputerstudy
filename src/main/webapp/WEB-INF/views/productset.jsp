@@ -99,13 +99,14 @@ ul.myMenu>li ul.submenu>li:hover {
  <table>
       <thead>
         <tr>
-          <th>분류코드</th><th>상품명</th><th>가격</th><th>관리</th>
+          <th>대분류</th><th>중분류</th><th>상품분류코드</th><th>상품명</th><th>가격</th><th>관리</th>
         </tr>
       </thead>
       <tbody>
       		<c:forEach var="pd" items="${pdList}">
 			<tr>
-				
+				<td>${pd.i_name }</td>
+				<td>${pd.m_name }</td>
 				<td>${pd.p_idx}</td>
 				<td>${pd.p_name }</td>
 				<td>${pd.p_price }원</td>

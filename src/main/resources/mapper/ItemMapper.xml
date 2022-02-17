@@ -13,8 +13,10 @@
 	</select>
 	
 	<select id="getProductList" resultType="Product">
-		SELECT	*
-		FROM	product
+		SELECT		*
+		FROM		product ta
+		LEFT JOIN 	midleitem tb ON ta.m_idx = tb.m_idx
+		LEFT JOIN 	item tc ON ta.i_idx = tc.i_idx
 	</select>
 	
 	
@@ -37,8 +39,14 @@
 		FROM		product ta
 		LEFT JOIN 	item tb ON ta.i_idx=tb.i_idx
 		LEFT join 	midleitem tc ON ta.m_idx=tc.m_idx
-		LEFT JOIN	file td ON ta.p_idx= td.p_idx
+		
 		WHERE		ta.p_idx = #{p_idx}
+	</select>
+	
+	<select id="productsetfileUpdate" resultType="Product">
+		SELECT	*
+		FROM	file
+		WHERE	p_idx= #{p_idx}
 	</select>
 	
 	<resultMap id="productResult" type="Product">

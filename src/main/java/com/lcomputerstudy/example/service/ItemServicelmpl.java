@@ -94,8 +94,10 @@ public class ItemServicelmpl implements ItemService {
 	public void productfileDelete(BoardFile boardfile){
 		itemmapper.productfileDelete(boardfile);
 	}
-	
-	
+	@Override //상품이미지만 불러오기
+	public List<Product> productsetfileUpdate(Product product){
+		return itemmapper.productsetfileUpdate(product);
+	}
 	@Override //상품 상세 정보
 	public Product productdetail(Product product) {
 		return itemmapper.productdetail(product);
