@@ -96,17 +96,31 @@ ul.myMenu>li ul.submenu>li:hover {
 <hr>
 
 상품 목록
+<div>
+			<form method="GET">
+				<fieldset>
+					<legend>글 검색</legend>
+					<label>검색분류</label> <select name="type">
+					
+						<option value="tc.i_name">분류명</option>
+						<option value="p_name">상품명</option>
+					</select> <label>검색어</label> <input type="text" name="keyword" value="" /> <input
+						type="submit" value="검색">
+					<%--f(제목,작성자)=title&q=(검색내용) --%>
+				</fieldset>
+			</form>
+		</div>
  <table>
       <thead>
         <tr>
-          <th>대분류</th><th>중분류</th><th>상품분류코드</th><th>상품명</th><th>가격</th><th>관리</th>
+          <th>분류</th><th>상품번호</th><th>상품명</th><th>가격</th><th>관리</th>
         </tr>
       </thead>
       <tbody>
       		<c:forEach var="pd" items="${pdList}">
 			<tr>
 				<td>${pd.i_name }</td>
-				<td>${pd.m_name }</td>
+				
 				<td>${pd.p_idx}</td>
 				<td>${pd.p_name }</td>
 				<td>${pd.p_price }원</td>

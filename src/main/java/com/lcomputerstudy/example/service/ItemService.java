@@ -5,6 +5,7 @@ import java.util.List;
 import com.lcomputerstudy.example.domain.BoardFile;
 import com.lcomputerstudy.example.domain.Item;
 import com.lcomputerstudy.example.domain.MidleItem;
+import com.lcomputerstudy.example.domain.Page;
 import com.lcomputerstudy.example.domain.Product;
 
 public interface ItemService {
@@ -20,7 +21,7 @@ public interface ItemService {
 	public void itemsetDelete(Item item); //대분류 카테고리 삭제
 	
 	
-	/*****중분류*****/
+	/*****중분류*****
 	public List<MidleItem> getMidleList();
 	
 	public MidleItem midlesetDetail(MidleItem midleItem); //중분류 카테고리 상세정보
@@ -30,7 +31,7 @@ public interface ItemService {
 	public void midlesetUpdate(MidleItem midleItem); //중분류 카테고리 수정
 	
 	public void midlesetDelete(MidleItem midleItem); //중분류 카테고리 삭제
-	
+	*/
 	
 	/***** 상품 *****/
 	public List<Product> getProductList();
@@ -48,6 +49,11 @@ public interface ItemService {
 	public void productfileDelete(BoardFile boardfile); //상품 이미지 파일 삭제
 	
 	public List<Product> productsetfileUpdate(Product product); // 상품 이미지만 불러오기
+	
+	public List<Product> selectProduct(Page page);
+	
+	public int countProduct(Page page);
+	
 	
 	public Product productdetail(Product product); //상품 상세정보
 }

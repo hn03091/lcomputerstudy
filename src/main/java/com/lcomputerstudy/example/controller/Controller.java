@@ -69,7 +69,7 @@ public class Controller {
 	public String admin(Model model) {
 		return "/admin";
 	}
-	@RequestMapping("/")
+	@RequestMapping("/") //메인페이지
 	public String home(Model model, Page page, Board board,Search search,Item item) {
 		page.setCount(boardservice.countBoard(page));
 		page.init();
@@ -96,22 +96,21 @@ public class Controller {
 	public String itemset(Model model) {
 		
 		List<Item> itemList=itemservice.getItemList();
-		List<MidleItem> midleList= itemservice.getMidleList();
-				
+		
 		model.addAttribute("itemList", itemList);
-		model.addAttribute("midleList", midleList);
+
 		
 		return "/itemset";
 	}
 	
-	@RequestMapping("/itemsetwrite") //대분류 카테고리 등록
+	@RequestMapping("/itemsetwrite") //분류 카테고리 등록
 	public String itemsetwrite(Model model,Item item) {
 		List<Item> itemList=itemservice.getItemList();
 		model.addAttribute("itemList", itemList);
 		
 		return "/itemsetwrite";
 	}
-	@RequestMapping("/itemsetwriteProcess") //대분류 카테고리 등록 프로세스
+	@RequestMapping("/itemsetwriteProcess") //분류 카테고리 등록 프로세스
 	public String itemsetwriteProcess(Model model,Item item) {
 	
 		itemservice.itemInsert(item);
@@ -120,7 +119,7 @@ public class Controller {
 		return "/itemsetwriteProcess";
 	}
 	
-	@RequestMapping("/itemsetUpdate") //대분류 카테고리 수정
+	@RequestMapping("/itemsetUpdate") //분류 카테고리 수정
 	public String itemsetUpdate(Model model,Item item) {
 		item =itemservice.itemsetDetail(item);
 		
@@ -128,14 +127,14 @@ public class Controller {
 		
 		return "/itemsetUpdate";
 	}
-	@RequestMapping("/itemsetUpdateProcess") //대분류 카테고리 수정 프로세스
+	@RequestMapping("/itemsetUpdateProcess") //분류 카테고리 수정 프로세스
 	public String itemsetUpdateProcess(Model model,Item item) {
 		itemservice.itemsetUpdate(item);
 		
 		return "/itemsetUpdateProcess";
 	}
 	
-	@RequestMapping("/itemsetDelete") //대분류 카테고리삭제
+	@RequestMapping("/itemsetDelete") //분류 카테고리삭제
 	public String itemsetDelete(Item item) {
 		itemservice.itemsetDelete(item);
 		return "/itemsetDelete";
@@ -143,7 +142,7 @@ public class Controller {
 	}
 	
 	
-	@RequestMapping("/midleitemsetwrite") //중분류 카테고리 등록
+	/*@RequestMapping("/midleitemsetwrite") //중분류 카테고리 등록
 	public String midleitemsetwrite(Model model,MidleItem midleItem) {
 		List<Item> itemList=itemservice.getItemList();
 		model.addAttribute("itemList", itemList);
@@ -180,10 +179,16 @@ public class Controller {
 		itemservice.midlesetDelete(mdItem);
 		
 		return "/midlesetDelete";
-	}
+	}*/
 	@RequestMapping("/productset")	//상품관리 메인
-	public String productset(Model model) {
-		List<Product> pdList=itemservice.getProductList();
+	public String productset(Model model,Search search,Page page) {
+		
+		page.setCount(itemservice.countProduct(page));
+		page.init();
+		List<Product> pdList = itemservice.selectProduct(page);
+		//List<Product> pdList=itemservice.getProductList();
+		
+		
 		
 		model.addAttribute("pdList", pdList);
 		
@@ -192,10 +197,10 @@ public class Controller {
 	@RequestMapping("/productwrite") //상품등록
 	public String productwrite(Model model){
 		List<Item> itemList=itemservice.getItemList();
-		List<MidleItem> midleList= itemservice.getMidleList();
+	
 		
 		model.addAttribute("itemList", itemList);
-		model.addAttribute("midleList", midleList);
+		
 		return "/productwrite";
 	}
 	@RequestMapping("/productProcess") //상품 등록 프로세스
@@ -254,11 +259,7 @@ public class Controller {
 		product.setFileNames(SavefileNames);
 		
 		
-		String mIdx=product.getM_idx();
-		String pIdx=product.getP_idx();
 		
-		String p_idx=mIdx+pIdx;
-		product.setP_idx(p_idx);
 		
 		itemservice.productInsert(product);
 		itemservice.fileNames(product);

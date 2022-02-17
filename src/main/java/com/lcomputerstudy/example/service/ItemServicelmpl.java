@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.BoardFile;
 import com.lcomputerstudy.example.domain.Item;
 import com.lcomputerstudy.example.domain.MidleItem;
+import com.lcomputerstudy.example.domain.Page;
 import com.lcomputerstudy.example.domain.Product;
 import com.lcomputerstudy.example.mapper.ItemMapper;
 
@@ -41,7 +43,7 @@ public class ItemServicelmpl implements ItemService {
 	}
 	
 	
-	/*****중분류*****/
+	/*****중분류*****
 	@Override
 	public List<MidleItem> getMidleList(){
 		return itemmapper.getMidleList();
@@ -61,7 +63,7 @@ public class ItemServicelmpl implements ItemService {
 	@Override //중분류 카테고리 삭제
 	public void midlesetDelete(MidleItem midleitem) {
 		itemmapper.midlesetDelete(midleitem);
-	}
+	}*/
 	
 	
 	/***** 상품 *****/
@@ -98,6 +100,16 @@ public class ItemServicelmpl implements ItemService {
 	public List<Product> productsetfileUpdate(Product product){
 		return itemmapper.productsetfileUpdate(product);
 	}
+	@Override
+	public List<Product> selectProduct(Page page){
+		return itemmapper.selectProduct(page);
+	}
+	@Override
+	public int countProduct(Page page) {
+		return itemmapper.countProduct(page);
+	}
+	
+	
 	@Override //상품 상세 정보
 	public Product productdetail(Product product) {
 		return itemmapper.productdetail(product);

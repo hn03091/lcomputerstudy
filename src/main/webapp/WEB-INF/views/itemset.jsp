@@ -131,40 +131,6 @@ ul.myMenu>li ul.submenu>li:hover {
 <p>
 <hr>
 <p>
-<table>
-      <thead>
-        <tr>
-          <th>대분류코드</th><th>중분류코드</th><th>상품명</th><th>관리</th>
-        </tr>
-      </thead>
-      <tbody>
-      		<c:forEach var="md" items="${midleList}">
-			<tr>
-				<td>${md.i_idx }</td>
-				<td>${md.m_idx}</td>
-				<td>${md.m_name }</td>
-				<td>
-				
-				
-				<form action="/midlesetUpdate" method="post">
-				<input type="hidden" name="m_idx" value="${md.m_idx}">
-				<button type="submit">수정</button>
-				</form>
-				<form action="/midlesetDelete" method="post">
-				<input type="hidden" name="m_idx" value="${md.m_idx}">
-				<button type="submit">삭제</button>
-				</form>
-				
-				</td>
-				
-
-			</tr>
-		</c:forEach>
-		
-      </tbody>
-    </table>
-<a href="/midleitemsetwrite">새로운 중분류 카테고리 등록</a>
-<hr>
 
 
 </body>

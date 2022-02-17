@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.lcomputerstudy.example.domain.BoardFile;
 import com.lcomputerstudy.example.domain.Item;
 import com.lcomputerstudy.example.domain.MidleItem;
+import com.lcomputerstudy.example.domain.Page;
 import com.lcomputerstudy.example.domain.Product;
 
 @Mapper
@@ -23,7 +24,7 @@ public interface ItemMapper {
 	
 	public void itemsetDelete(Item item); //대분류 카테고리 삭제
 	
-	/***** 중분류	*****/
+	/***** 중분류	*****
 	
 	public List<MidleItem> getMidleList();
 	
@@ -50,7 +51,12 @@ public interface ItemMapper {
 	
 	public void productfileDelete(BoardFile boardfile); //상품 이미지 파일 삭제
 	
-	public List<Product> productsetfileUpdate(Product product); // 상품 이미지만 불러오기
+	public List<Product> productsetfileUpdate(Product product); // 상품 이미지만 불러오기.
+	
+	public List<Product> selectProduct(Page page);
+	
+	public int countProduct(Page page);
+	
 	
 	public Product productdetail(Product product); //상품 상세정보
 	

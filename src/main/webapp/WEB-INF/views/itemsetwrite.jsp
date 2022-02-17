@@ -41,7 +41,7 @@
 		<hr>
 	<form action="/itemsetwriteProcess" method="post" enctype="multipart/form-data">
 		<div>
-				대분류코드 : <input type="text" name="i_idx"placeholder="10의 단위로 입력해주세요">
+				분류코드 : <input type="text" name="i_idx"placeholder="10의 단위로 입력해주세요">
 				<p></p>
 				
 				카테고리명 : <input type="text" name="i_name"placeholder="영어로 입력 해주세요">

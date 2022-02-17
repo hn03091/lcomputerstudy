@@ -35,7 +35,7 @@
 		
 	
 		
-		<p>	대분류코드 : <input type="text" name="i_idx">
+		<p>	분류코드 : <input type="text" name="i_idx">
 		
 		<c:forEach var="itemList" items="${itemList }">
 			<p>
@@ -43,14 +43,9 @@
 			<td>${itemList.i_name }</td>
 			<p>
 		</c:forEach>
-		<p> 중분류코드 : <input type="text" name="m_idx">
-		<c:forEach var="md" items="${midleList }">
-			<p>
-			<td>${md.m_idx}</td>
-			<td>${md.m_name }</td>
-			<p>
-		</c:forEach>
-		<p> 상품코드 : <input type="text" name="p_idx">
+	
+		
+	
 		<p> 상품가격 : <input type="text" name="p_price"> 원
 		<hr></hr>
 		

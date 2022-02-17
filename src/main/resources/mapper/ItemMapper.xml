@@ -1,21 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lcomputerstudy.example.mapper.ItemMapper">
+
+
+<sql id = "searchType">
+		<trim prefix="WHERE" prefixOverrides="AND|OR">	
+			<if test="type == 'p_name' and keyword != null and keyword != ''">
+				AND p_name like concat('%',#{keyword},'%')
+			</if>
+			<if test="type == 'tc.i_name' and keyword != null and keyword != ''">
+				AND tc.i_name like concat('$',#{keyword},'%')
+			</if>
+		</trim>
+	</sql>
+	<select id="countProduct" resultType="int" parameterType="Page">
+		SELECT		COUNT(*) 
+		FROM		product ta
+		
+		left join	item tc on ta.i_idx = tc.i_idx
+		<include refid="searchType"></include>
+	</select>
+	
+	
+	<select id="selectProduct" resultType ="Product">
+	SELECT 		@ROWNUM := @ROWNUM -1 AS ROWNUM, 
+				ta.p_idx ,
+                ta.p_name,
+                ta.p_price,
+                tc.i_name
+                
+	FROM 		product ta
+	
+	left join	item tc on ta.i_idx = tc.i_idx
+	INNER join	(SELECT @rownum:= (SELECT COUNT(*) -#{pageNum}+1 FROM product ta)) tb ON 1=1
+	<include refid="searchType"></include>
+	LIMIT #{pageNum},3
+	
+	</select>
+	
 	<select id="getItemList" resultType ="Item">
 		SELECT 		*
 		FROM 		Item
 		
 	</select>
 	
-	<select id="getMidleList" resultType="MidleItem">
-		SELECT	*
-		FROM	midleitem
-	</select>
-	
 	<select id="getProductList" resultType="Product">
 		SELECT		*
 		FROM		product ta
-		LEFT JOIN 	midleitem tb ON ta.m_idx = tb.m_idx
+
 		LEFT JOIN 	item tc ON ta.i_idx = tc.i_idx
 	</select>
 	
@@ -27,18 +59,13 @@
 		WHERE	i_idx=#{i_idx}
 	</select>
 	
-	<select id="midlesetDetail" resultType="MidleItem">
-		SELECT	*
-		FROM	midleitem
-		WHERE	m_idx=#{m_idx}
-	</select>
+
 	
 	
 	<select id="productsetDetail" resultType="Product">
 		SELECT		*
 		FROM		product ta
 		LEFT JOIN 	item tb ON ta.i_idx=tb.i_idx
-		LEFT join 	midleitem tc ON ta.m_idx=tc.m_idx
 		
 		WHERE		ta.p_idx = #{p_idx}
 	</select>
@@ -90,23 +117,13 @@
 		)
 		
 	</insert>
-	<insert id="midleitemInsert" parameterType="MidleItem">
-		INSERT INTO midleitem(
-			i_idx,
-			m_idx,
-			m_name
-		)VALUES(
-			#{i_idx},
-			#{m_idx},
-			#{m_name}
-		)
-		
-	</insert>
+	
+	
 
 	<insert id="productInsert" parameterType="Product">
 		INSERT INTO product(
 			i_idx,
-			m_idx,
+		
 			p_idx,
 			p_name,
 			p_content,
@@ -114,7 +131,7 @@
 			p_price
 		)VALUES(
 			#{i_idx},
-			#{m_idx},
+		
 			#{p_idx},
 			#{p_name},
 			#{p_content},
@@ -146,18 +163,7 @@
 		WHERE i_idx = #{i_idx}
 		
 	</insert>
-	<insert id="midlesetUpdate" parameterType="MidleItem">
-		UPDATE midleitem
-		SET
-			
-			m_name = #{m_name}
-		WHERE m_idx=#{m_idx}
-	</insert>
-	<insert id ="midlesetDelete" parameterType="MidleItem">
-		DELETE
-		FROM midleitem
-		WHERE m_idx = #{m_idx}
-	</insert>
+	
 	
 	<insert id="productsetUpdate" parameterType="Product">
 		UPDATE product
@@ -182,7 +188,41 @@
 		LEFT JOIN file tb ON ta.p_idx = tb.p_idx
 		WHERE ta.p_idx = #{p_idx}
 	</insert>
-
+	
+	<!-- 중분류 
+	<select id="getMidleList" resultType="MidleItem">
+		SELECT	*
+		FROM	midleitem
+	</select>
+	<select id="midlesetDetail" resultType="MidleItem">
+		SELECT	*
+		FROM	midleitem
+		WHERE	m_idx=#{m_idx}
+	</select>
+	<insert id="midleitemInsert" parameterType="MidleItem">
+		INSERT INTO midleitem(
+			i_idx,
+			m_idx,
+			m_name
+		)VALUES(
+			#{i_idx},
+			#{m_idx},
+			#{m_name}
+		)
+		
+	</insert>
+	<insert id="midlesetUpdate" parameterType="MidleItem">
+		UPDATE midleitem
+		SET
+			
+			m_name = #{m_name}
+		WHERE m_idx=#{m_idx}
+	</insert>
+	<insert id ="midlesetDelete" parameterType="MidleItem">
+		DELETE
+		FROM midleitem
+		WHERE m_idx = #{m_idx}
+	</insert>-->
 
 
 

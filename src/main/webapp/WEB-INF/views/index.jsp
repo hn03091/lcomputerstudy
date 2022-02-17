@@ -49,11 +49,14 @@ li {
 	
 
 	<c:forEach var="itemList" items="${itemList }">
-			<td>${itemList.i_idx}</td>
-			<td>${itemList.i_name }</td>		
+			
+			<td>${itemList.i_name }</td>
+			<p>		
 	</c:forEach>
 	<table>
 	
+	<hr>
+	제품 후기
 
 		<div>
 			<form method="GET">

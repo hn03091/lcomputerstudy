@@ -27,10 +27,7 @@
 	<font size="5em" color="green"> 상품 수정 </font>
 	<hr>
 	<p>
-		<!-- 	<img src="/image/thumb/${product.fileName }">
-		</p>
-		${product.bf_idx }
-			 -->	
+		
 
 	
 		<a href="/productsetfileUpdate/?p_idx=${product.p_idx}" target='_blank'>이미지 수정하기</a>
@@ -47,14 +44,11 @@
 		
 		
 		
-			<p>대분류코드</p>
+			<p>분류코드</p>
 			<td>${product.i_idx}</td>
 			<td>${product.i_name }</td>
 			
-		<p> 중분류코드 : 
-			<td>${product.m_idx}</td>
-			<td>${product.m_name }</td>
-			<p>
+		
 				
 		<p> 상품코드 : <input type="text" name="p_idx" placeholder="${product.p_idx }" disabled/>
 		<input type="hidden" name="p_idx" value="${product.p_idx}">
