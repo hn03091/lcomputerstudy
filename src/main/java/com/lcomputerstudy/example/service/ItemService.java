@@ -55,5 +55,9 @@ public interface ItemService {
 	public int countProduct(Page page);
 	
 	
+	////////////////////////
+	
+	public List<Product> getproductList2(Product product);
+	
 	public Product productdetail(Product product); //상품 상세정보
 }

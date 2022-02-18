@@ -89,9 +89,12 @@ public class Controller {
 	public String itemdetail(Model model,BoardFile boardfile,Product product) {
 		
 		product =itemservice.productdetail(product);
-		model.addAttribute(product);
+		model.addAttribute("product", product);
 		return "/itemdetail";
 	}
+	
+/////////////////////////////////////////관리자 페이지//////////////////////////////////////////////	
+
 	@RequestMapping("/itemset")	//분류관리 메인
 	public String itemset(Model model) {
 		
@@ -374,6 +377,25 @@ public class Controller {
 		
 		return "/productsetDelete";
 	}
+/////////////////////////////////////////사용자페이지//////////////////////////////////////////////	
+
+	@RequestMapping("/productList") //상품 리스트
+	public String productList(Product product,Model model) {
+		List<Product> prList=itemservice.getproductList2(product);
+		
+		
+		model.addAttribute("prList" ,prList);
+		return "/productList";
+	}
+	@RequestMapping("/boardList")
+	public String boardList(Model model,Board board) {
+		List<Board> rvList=boardservice.getreviewBoard(board);
+		
+		
+		model.addAttribute("rvList", rvList);
+		return "/boardList";
+	}
+	
 	
 
 	@ResponseBody

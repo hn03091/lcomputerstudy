@@ -108,6 +108,12 @@ public class ItemServicelmpl implements ItemService {
 	public int countProduct(Page page) {
 		return itemmapper.countProduct(page);
 	}
+	/////////////////////
+	@Override
+	public List<Product> getproductList2(Product product){
+		return itemmapper.getproductList2(product);
+	}
+	
 	
 	
 	@Override //상품 상세 정보

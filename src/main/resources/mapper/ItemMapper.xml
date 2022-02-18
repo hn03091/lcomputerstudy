@@ -43,14 +43,14 @@
 		FROM 		Item
 		
 	</select>
-	
-	<select id="getProductList" resultType="Product">
+	<!-- 
+	1<select id="getProductList" resultType="Product">
 		SELECT		*
 		FROM		product ta
 
 		LEFT JOIN 	item tc ON ta.i_idx = tc.i_idx
 	</select>
-	
+	 -->
 	
 	
 	<select id="itemsetDetail" resultType ="Item">
@@ -85,7 +85,7 @@
 		
 		<collection property="comments" ofType="Comment">
 			<id property="c_no"			column="c_no"/>
-			<result property="i_idx"			column="i_idx"/>
+			<result property="p_idx"			column="p_idx"/>
 			<result property="c_content"	column="c_content"/>
 			<result property="c_writer"		column="c_writer"/>
 			<result property="c_date"		column="c_date"/>
@@ -93,7 +93,7 @@
 		 
 		<collection property="boardFiles" ofType="BoardFile">
 			<id property="bfIdx"			column="bf_idx"/>
-			<result property="i_idx"			column="i_idx"/>
+			<result property="p_idx"			column="p_idx"/>
 			<result property="fileName"		column="fileName"/>
 		</collection>
 		
@@ -138,6 +138,9 @@
 			#{p_date},
 			#{p_price}
 		)
+		 <selectKey keyProperty="p_idx" resultType="Integer">
+    		SELECT LAST_INSERT_ID()
+  		</selectKey>
 	</insert>
 	
 
@@ -223,7 +226,12 @@
 		FROM midleitem
 		WHERE m_idx = #{m_idx}
 	</insert>-->
-
+	<select id="getproductList2" resultType="Product">
+		SELECT	*
+		FROM	product
+		WHERE	i_idx LIKE concat(#{i_idx},'%')
+		
+	</select>
 
 
 

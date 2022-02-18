@@ -35,7 +35,19 @@
 	
 	</select>
 	
+	<select id="getreviewBoard" resultType="Board">
+	SELECT		ta.b_idx AS bId,
+				ta.b_title AS bTitle,
+				ta.b_date AS bDateTime,
+				ta.b_writer AS bWriter,
+				tb.p_name,
+				tb.p_idx
+	FROM		board ta
+	LEFT JOIN	product tb ON ta.p_idx = tb.p_idx
+	WHERE		ta.p_idx= #{p_idx}
 	
+	
+	</select>
 	<insert id="boardwrite" parameterType="Board">
 		INSERT INTO board(
 			b_idx,

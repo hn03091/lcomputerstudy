@@ -47,16 +47,16 @@ li {
 <body>
 	<h1>BEOM SHOP</h1>
 	
-
+<p>의류</p>
 	<c:forEach var="itemList" items="${itemList }">
 			
-			<td>${itemList.i_name }</td>
+			<td><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }</a></td>
 			<p>		
 	</c:forEach>
 	<table>
 	
 	<hr>
-	제품 후기
+
 
 		<div>
 			<form method="GET">
@@ -73,7 +73,7 @@ li {
 		</div>
 
 		<tr>
-			<td>게시판 번호</td>
+			<td>자유게시판 번호</td>
 			<td>제목</td>
 			<td>작성자</td>
 			<td>작성 날짜</td>

@@ -76,6 +76,11 @@ public class BoardServicelmpl implements BoardService {
 	public List<Board> searchBoard(Page page){
 		return boardmapper.searchBoard(page);
 	}
+	@Override
+	public List<Board> getreviewBoard(Board board){
+		return boardmapper.getreviewBoard(board);
+				
+	}
 	/*@Override
 	public List<Board> commentlist(int bId){
 		return boardmapper.commentlist(bId);  댓글 목록

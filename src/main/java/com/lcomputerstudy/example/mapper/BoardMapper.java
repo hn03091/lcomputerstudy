@@ -40,4 +40,6 @@ public interface BoardMapper {
 	public List<Board> selectBoard(Page page);
 	
 	public List<Board> searchBoard(Page page);
+	
+	public List<Board> getreviewBoard(Board board);
 }

@@ -40,15 +40,15 @@ table tr td, table tr th {
 </head>
 
 <body>
-	<p>게시판 제목 : ${item.i_name}</p>
-	<p>등록 날짜 : ${item.i_date}</p>
-	<p>가격 : ${item.i_price}
-	<p>내용 : ${item.i_content }</p>
+	<p>게시판 제목 : ${product.p_name}</p>
+	<p>등록 날짜 : ${product.p_date}</p>
+	<p>가격 : ${product.p_price}
+	<p>내용 : ${product.p_content }</p>
 	<sec:authentication property="principal" var="user" />
-	
-	
+
+
 	<div>
-		<c:forEach var="boardFile" items="${item.boardFiles }">
+		<c:forEach var="boardFile" items="${product.boardFiles }">
 			<p>
 				<img src="/image/thumb/${boardFile.fileName }">
 			</p>
@@ -56,8 +56,35 @@ table tr td, table tr th {
 
 		</c:forEach>
 	</div>
-	<form action="/commentprocess" method="post">
-		<input type="hidden" name="bId" value="${board.bId}">
+	<form action="/productBuy" method="post">
+		<select name="size">
+			<option value="none">=== 사이즈 선택 ===</option>
+			<option value="S">S</option>
+			<option value="M">M</option>
+			<option value="L">L</option>
+			<option value="XL">XL</option>
+		</select>
+		<p>
+		<select name="color">
+			<option value="none">=== 색깔 선택 ===</option>
+			<option value="red">red</option>
+			<option value="blue">blue</option>
+			<option value="black">black</option>
+			<option value="white">white</option>
+		</select>
+
+		<hr>
+		<button type="submit">구매하기</button>
+		<hr>
+	</form>
+	<ul>
+
+		<li><a href="/productList?i_idx=${$product.i_idx }">돌아가기</a></li>
+		<li><a href="/boardList?p_idx=${product.p_idx }">제품 후기 게시판</a>
+	</ul>
+
+	<!-- <form action="/commentprocess" method="post">
+		<input type="hidden" name="p_idx" value="${product.p_idx}">
 		<div>
 			댓글 작성 :
 			<textarea rows="1" cols="40" name="c_content"
@@ -65,24 +92,15 @@ table tr td, table tr th {
 			<button type="submit">댓글작성</button>
 
 		</div>
-		<ul>
-			<li><a href="/">돌아가기</a></li>
-		</ul>
+		
 	</form>
-
-
-	<c:if test="${user.uName  == board.bWriter }">
-
-		<form action="/itemwriteUpdate" method="post">
-			<input type="hidden" name="i_idx" value="${item.i_idx}">
-			<button type="submit">수정</button>
-		</form>
-	</c:if>
 	
 
 
 
-	<table>
+
+
+ 	<table>
 
 
 
@@ -106,12 +124,8 @@ table tr td, table tr th {
 			</tr>
 		</c:forEach>
 
-
-
-
-
-
-	</table>
-
+	</table> -->
+	
+	
 </body>
 </html>

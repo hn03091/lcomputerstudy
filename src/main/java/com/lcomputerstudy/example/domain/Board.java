@@ -23,8 +23,24 @@ public class Board {
 	private List<Comment> comments;
 	private String Field;
 	private String Query;
+	private int p_idx;
+	private String p_name;
 	
 	
+	
+	
+	public String getP_name() {
+		return p_name;
+	}
+	public void setP_name(String p_name) {
+		this.p_name = p_name;
+	}
+	public int getP_idx() {
+		return p_idx;
+	}
+	public void setP_idx(int p_idx) {
+		this.p_idx = p_idx;
+	}
 	public String getField() {
 		return Field;
 	}

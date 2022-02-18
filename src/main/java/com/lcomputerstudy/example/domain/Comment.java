@@ -6,14 +6,16 @@ public class Comment {
 	private String c_content;
 	private String c_writer;
 	private	String c_date;
-	private String i_idx;
+	private String p_idx;
 	
 	
-	public String getI_idx() {
-		return i_idx;
+	
+	
+	public String getP_idx() {
+		return p_idx;
 	}
-	public void setI_idx(String i_idx) {
-		this.i_idx = i_idx;
+	public void setP_idx(String p_idx) {
+		this.p_idx = p_idx;
 	}
 	public int getbId() {
 		return bId;

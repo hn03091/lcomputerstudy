@@ -20,6 +20,7 @@
  		<p> 제목 : <input type="text" name="bTitle">
  	 </div>
  	 
+ 	 
  	<div>
 		<textarea rows="10" cols="50" name="bContent" placeholder="내용을 입력하세요."></textarea>
 		

@@ -5,9 +5,8 @@ import java.util.List;
 public class Product {
 	private String i_idx;
 	private String i_name;
-	private String m_idx;
-	private String m_name;
-	private String p_idx;
+
+	private int p_idx;
 	private String p_name;
 	private String p_content;
 	private String p_date;
@@ -42,12 +41,7 @@ public class Product {
 	public void setI_name(String i_name) {
 		this.i_name = i_name;
 	}
-	public String getM_name() {
-		return m_name;
-	}
-	public void setM_name(String m_name) {
-		this.m_name = m_name;
-	}
+	
 	public List<BoardFile> getBoardFiles() {
 		return boardFiles;
 	}
@@ -72,16 +66,11 @@ public class Product {
 	public void setI_idx(String i_idx) {
 		this.i_idx = i_idx;
 	}
-	public String getM_idx() {
-		return m_idx;
-	}
-	public void setM_idx(String m_idx) {
-		this.m_idx = m_idx;
-	}
-	public String getP_idx() {
+	
+	public int getP_idx() {
 		return p_idx;
 	}
-	public void setP_idx(String p_idx) {
+	public void setP_idx(int p_idx) {
 		this.p_idx = p_idx;
 	}
 	public String getP_name() {
