@@ -64,6 +64,24 @@ ul.myMenu>li ul.submenu>li {
 ul.myMenu>li ul.submenu>li:hover {
 	background: #fff;
 }
+
+ul {
+	width: 400px;
+	height: 50px;
+	margin: 10px auto;
+}
+
+li {
+	list-style: none;
+	width: 50px;
+	line-height: 50px;
+	border: 1px solid #ededed;
+	float: left;
+	text-align: center;
+	margin: 0 5px;
+	border-radius: 5px;
+}
+
 </style>
 <title>관리자 메인</title>
 </head>
@@ -144,6 +162,36 @@ ul.myMenu>li ul.submenu>li:hover {
 		
       </tbody>
     </table>
+    <div>
+		<ul>
+			<c:choose>
+				<c:when test="${ page.prevPage  >=1 }">
+					<li style=""><a href="/productset?nowpage=${page.prevPage}">◀</a></li>
+				</c:when>
+			</c:choose>
+
+			<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}"
+				step="1">
+				<c:choose>
+					<c:when test="${ page.nowpage == i }">
+
+						<li style="background-color: #ededed;"><span>${i}</span></li>
+
+					</c:when>
+					<c:when test="${ page.nowpage != i }">
+						<li><a href="/productset?nowpage=${i}">${i}</a></li>
+					</c:when>
+				</c:choose>
+			</c:forEach>
+
+			<c:choose>
+				<c:when test="${ page.nextPage <= page.lastPage }">
+					<li style=""><a href="/productset?nowpage=${page.nextPage}">▶</a></li>
+				</c:when>
+			</c:choose>
+		</ul>
+	</div>
+    
 <a href="/productwrite">상품 등록</a>
 
 

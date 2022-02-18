@@ -58,7 +58,7 @@ table tr td, table tr th {
 	</div>
 	<form action="/productBuy" method="post">
 		<select name="size">
-			<option value="none">=== 사이즈 선택 ===</option>
+			<option value="none">=== size ===</option>
 			<option value="S">S</option>
 			<option value="M">M</option>
 			<option value="L">L</option>
@@ -66,7 +66,7 @@ table tr td, table tr th {
 		</select>
 		<p>
 		<select name="color">
-			<option value="none">=== 색깔 선택 ===</option>
+			<option value="none">=== color===</option>
 			<option value="red">red</option>
 			<option value="blue">blue</option>
 			<option value="black">black</option>
