@@ -65,13 +65,13 @@ ul.myMenu>li ul.submenu>li:hover {
 	background: #fff;
 }
 
-ul {
+ul.button {
 	width: 400px;
 	height: 50px;
 	margin: 10px auto;
 }
 
-li {
+li.button {
 	list-style: none;
 	width: 50px;
 	line-height: 50px;
@@ -163,10 +163,10 @@ li {
       </tbody>
     </table>
     <div>
-		<ul>
+		<ul class="button">
 			<c:choose>
 				<c:when test="${ page.prevPage  >=1 }">
-					<li style=""><a href="/productset?nowpage=${page.prevPage}">◀</a></li>
+					<li class="button" style=""><a href="/productset?nowpage=${page.prevPage}">◀</a></li>
 				</c:when>
 			</c:choose>
 
@@ -175,18 +175,18 @@ li {
 				<c:choose>
 					<c:when test="${ page.nowpage == i }">
 
-						<li style="background-color: #ededed;"><span>${i}</span></li>
+						<li class="button" style="background-color: #ededed;"><span>${i}</span></li>
 
 					</c:when>
 					<c:when test="${ page.nowpage != i }">
-						<li><a href="/productset?nowpage=${i}">${i}</a></li>
+						<li class="button"><a href="/productset?nowpage=${i}">${i}</a></li>
 					</c:when>
 				</c:choose>
 			</c:forEach>
 
 			<c:choose>
 				<c:when test="${ page.nextPage <= page.lastPage }">
-					<li style=""><a href="/productset?nowpage=${page.nextPage}">▶</a></li>
+					<li class="button" style=""><a href="/productset?nowpage=${page.nextPage}">▶</a></li>
 				</c:when>
 			</c:choose>
 		</ul>

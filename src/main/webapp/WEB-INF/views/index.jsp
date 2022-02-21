@@ -4,6 +4,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,48 @@
 </head>
 <style>
 
+ul.myMenu {
+	
+}
 
+ul.myMenu>li {
+	display: inline-block;
+	width: 80px;
+	padding: 5px 10px;
+	background: #FFF0F5;
+	border: 1px solid #eee;
+	text-align: center;
+	position: relative;
+}
+
+ul.myMenu>li:hover {
+	background: #fff;
+}
+
+ul.myMenu>li ul.submenu {
+	display: none;
+	position: absolute;
+	top: 30px;
+	left: 0;
+}
+
+ul.myMenu>li:hover ul.submenu {
+	display: block;
+}
+
+ul.myMenu>li ul.submenu>li {
+	display: inline-block;
+	width: 80px;
+	padding: 5px 10px;
+	background: #eee;
+	border: 1px solid #eee;
+	text-align: center;
+}
+
+ul.myMenu>li ul.submenu>li:hover {
+	background: #fff;
+}
+<!--////////-->
 table {
 	border-collapse: collapse;
 }
@@ -27,13 +69,13 @@ table tr td, table tr th {
 	text-align: center;
 }
 
-ul {
+ul.button {
 	width: 400px;
 	height: 50px;
 	margin: 10px auto;
 }
 
-li {
+li.button {
 	list-style: none;
 	width: 50px;
 	line-height: 50px;
@@ -46,10 +88,32 @@ li {
 </style>
 <body>
 	<h1>BEOM SHOP</h1>
-	
+	<div id="container">
+		<ul class="myMenu">
+			<li class="menu1">메뉴 1</li>
+			<li class="menu2">회원 관리
+				<ul class="menu2_s submenu">
+					<li>회원 목록</li>
+
+				</ul>
+			</li>
+			<li class="menu3">쇼핑몰관리
+				<ul class="menu3_s submenu">
+					<li>주문 내역</li>
+					<li><a href="/itemset">분류 관리</a></li>
+					<li><a href="/productset">상품 관리</a></li>
+				</ul>
+			</li>
+			<li class="menu4">메뉴 4</li>
+			<li class="menu5">메뉴 5</li>
+		</ul>
+	</div>
 <p>의류</p>
+
 	<c:forEach var="itemList" items="${itemList }">
+			<c:set var ="item" value="${itemList.i_name }"/>
 			
+
 			<td><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }</a></td>
 			<p>		
 	</c:forEach>
@@ -90,10 +154,10 @@ li {
 		</c:forEach>
 	</table>
 	<div>
-		<ul>
+		<ul class="button">
 			<c:choose>
 				<c:when test="${ page.prevPage  >=1 }">
-					<li style=""><a href="/?nowpage=${page.prevPage}">◀</a></li>
+					<li class="button" style=""><a href="/?nowpage=${page.prevPage}">◀</a></li>
 				</c:when>
 			</c:choose>
 
@@ -102,18 +166,18 @@ li {
 				<c:choose>
 					<c:when test="${ page.nowpage == i }">
 
-						<li style="background-color: #ededed;"><span>${i}</span></li>
+						<li class="button" style="background-color: #ededed;"><span>${i}</span></li>
 
 					</c:when>
 					<c:when test="${ page.nowpage != i }">
-						<li><a href="/?nowpage=${i}">${i}</a></li>
+						<li class="button"><a href="/?nowpage=${i}">${i}</a></li>
 					</c:when>
 				</c:choose>
 			</c:forEach>
 
 			<c:choose>
 				<c:when test="${ page.nextPage <= page.lastPage }">
-					<li style=""><a href="/?nowpage=${page.nextPage}">▶</a></li>
+					<li class="button" style=""><a href="/?nowpage=${page.nextPage}">▶</a></li>
 				</c:when>
 			</c:choose>
 		</ul>
