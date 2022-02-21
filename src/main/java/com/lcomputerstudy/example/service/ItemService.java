@@ -7,6 +7,7 @@ import com.lcomputerstudy.example.domain.Item;
 import com.lcomputerstudy.example.domain.MidleItem;
 import com.lcomputerstudy.example.domain.Page;
 import com.lcomputerstudy.example.domain.Product;
+import com.lcomputerstudy.example.domain.Sold;
 
 public interface ItemService {
 	public List<Item> getItemList();
@@ -21,17 +22,9 @@ public interface ItemService {
 	public void itemsetDelete(Item item); //대분류 카테고리 삭제
 	
 	
-	/*****중분류*****
-	public List<MidleItem> getMidleList();
-	
-	public MidleItem midlesetDetail(MidleItem midleItem); //중분류 카테고리 상세정보
-	
-	public void midleitemInsert(MidleItem midleItem); //중분류 카테고리 등록
-	
-	public void midlesetUpdate(MidleItem midleItem); //중분류 카테고리 수정
-	
-	public void midlesetDelete(MidleItem midleItem); //중분류 카테고리 삭제
-	*/
+	/*****주문관리*****/
+	public List<Sold> getSoldList();
+
 	
 	/***** 상품 *****/
 	public List<Product> getProductList();
@@ -56,6 +49,7 @@ public interface ItemService {
 	
 	
 	////////////////////////
+	public void insertSold(Sold sold);
 	
 	public List<Product> getproductList2(Product product);
 	

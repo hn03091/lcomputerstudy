@@ -112,7 +112,7 @@ li.button {
 
 	<c:forEach var="itemList" items="${itemList }">
 			<c:set var ="item" value="${itemList.i_name }"/>
-			
+
 
 			<td><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }</a></td>
 			<p>		

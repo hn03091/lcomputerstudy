@@ -56,27 +56,10 @@ table tr td, table tr th {
 
 		</c:forEach>
 	</div>
-	<form action="/productBuy" method="post">
-		<select name="size">
-			<option value="none">=== size ===</option>
-			<option value="S">S</option>
-			<option value="M">M</option>
-			<option value="L">L</option>
-			<option value="XL">XL</option>
-		</select>
-		<p>
-		<select name="color">
-			<option value="none">=== color===</option>
-			<option value="red">red</option>
-			<option value="blue">blue</option>
-			<option value="black">black</option>
-			<option value="white">white</option>
-		</select>
+	<a href="/itembuy?p_idx=${product.p_idx }">구매</a>
+		<hr>
+		
 
-		<hr>
-		<button type="submit">구매하기</button>
-		<hr>
-	</form>
 	<ul>
 
 		<li><a href="/productList?i_idx=${$product.i_idx }">돌아가기</a></li>

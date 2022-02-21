@@ -11,6 +11,7 @@ import com.lcomputerstudy.example.domain.Item;
 import com.lcomputerstudy.example.domain.MidleItem;
 import com.lcomputerstudy.example.domain.Page;
 import com.lcomputerstudy.example.domain.Product;
+import com.lcomputerstudy.example.domain.Sold;
 import com.lcomputerstudy.example.mapper.ItemMapper;
 
 @Service("ItemServiceImpl")
@@ -43,28 +44,11 @@ public class ItemServicelmpl implements ItemService {
 	}
 	
 	
-	/*****중분류*****
+	/*****주문관리*****/
 	@Override
-	public List<MidleItem> getMidleList(){
-		return itemmapper.getMidleList();
+	public List<Sold> getSoldList(){
+		return itemmapper.getSoldList();	
 	}
-	@Override //중분류 카테고리 상세정보
-	public MidleItem midlesetDetail(MidleItem midleItem) {
-		return itemmapper.midlesetDetail(midleItem);
-	}
-	@Override //중분류 카테고리 등록
-	public void midleitemInsert(MidleItem midleitem) {
-		itemmapper.midleitemInsert(midleitem);
-	}
-	@Override //중분류 카테고리 수정
-	public void midlesetUpdate(MidleItem midleitem) {
-		itemmapper.midlesetUpdate(midleitem);
-	}
-	@Override //중분류 카테고리 삭제
-	public void midlesetDelete(MidleItem midleitem) {
-		itemmapper.midlesetDelete(midleitem);
-	}*/
-	
 	
 	/***** 상품 *****/
 	@Override
@@ -114,7 +98,10 @@ public class ItemServicelmpl implements ItemService {
 		return itemmapper.getproductList2(product);
 	}
 	
-	
+	@Override
+	public void insertSold(Sold sold) {
+		itemmapper.insertSold(sold);
+	}
 	
 	@Override //상품 상세 정보
 	public Product productdetail(Product product) {

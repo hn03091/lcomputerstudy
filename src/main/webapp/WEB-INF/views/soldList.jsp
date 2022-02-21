@@ -69,7 +69,6 @@ ul.myMenu>li ul.submenu>li:hover {
 <title>관리자 메인</title>
 </head>
 <body>
-<body>
 	<font size="200em" color="green"> Beom shop </font>
 	<hr>
 	<font size="5em" color="green"> 분류 관리 </font>
@@ -95,40 +94,45 @@ ul.myMenu>li ul.submenu>li:hover {
 		</ul>
 	</div>
 <hr>
+<div style="OVERFLOW-Y:auto; width:100%; height:150px;">
  <table>
+
       <thead>
+      
         <tr>
-          <th>대분류코드</th><th>상품명</th><th>관리</th>
+          <th>번호</th>
+          <th>상품명</th>
+          <th>사이즈</th>
+          <th>색상</th>
+          <th>배송지</th>
+          <th>입금 계좌</th>
+          <th>입금 은행</th>
+          <th>주문 고객ID</th>
+          
         </tr>
       </thead>
       <tbody>
-      		<c:forEach var="item" items="${itemList}">
+      		<c:forEach var="sold" items="${soldList}">
 			<tr>
 				
-				<td>${item.i_idx}</td>
-				<td>${item.i_name }</td>
-				<td>
+				<td>${sold.s_idx}</td>
+				<td>${sold.p_name }</td>
+				<td>${sold.s_name }</td>
+				<td>${sold.co_name }</td>
+				<td>${sold.s_address }</td>
+				<td>${sold.s_account }</td>
+				<td>${sold.b_name }</td>
+				<td>${sold.u_id }</td>
 				
-				
-				<form action="/itemsetUpdate" method="post">
-				<input type="hidden" name="i_idx" value="${item.i_idx}">
-				<button type="submit">수정</button>
-				</form>
-				<form action="/itemsetDelete" method="post">
-				<input type="hidden" name="i_idx" value="${item.i_idx}">
-				<button type="submit">삭제</button>
-				</form>
-				
-				</td>
 				
 
 			</tr>
 		</c:forEach>
 		
       </tbody>
+      
     </table>
-    	
-<a href="/itemsetwrite">새로운 대분류 카테고리 등록</a>
+</div>
 <p>
 <hr>
 <p>

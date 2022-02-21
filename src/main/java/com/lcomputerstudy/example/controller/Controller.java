@@ -26,6 +26,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,7 +42,7 @@ import com.lcomputerstudy.example.domain.MidleItem;
 import com.lcomputerstudy.example.domain.Page;
 import com.lcomputerstudy.example.domain.Product;
 import com.lcomputerstudy.example.domain.Search;
-
+import com.lcomputerstudy.example.domain.Sold;
 import com.lcomputerstudy.example.domain.User;
 import com.lcomputerstudy.example.service.BoardService;
 import com.lcomputerstudy.example.service.ItemService;
@@ -75,7 +76,17 @@ public class Controller {
 		page.init();
 		List<Board> list = boardservice.selectBoard(page);
 		List<Item> itemList = itemservice.getItemList();
-		
+	/*	List<Item> iList;
+		List<Item> sList;
+		for( Item iL : itemList) {
+			String iName= iL.getI_idx();
+			int ilong=iName.length();
+			if(ilong <3) {
+				iList.add(iL);
+			}else if(ilong>3) {
+				sList.add(iL);
+			}
+		}*/
 		
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("list", list);
@@ -92,9 +103,35 @@ public class Controller {
 		model.addAttribute("product", product);
 		return "/itemdetail";
 	}
+	@RequestMapping("/itembuy")
+	public String itembuy(Model model,Product product) {
+		product = itemservice.productdetail(product);
+		
+		model.addAttribute("product",product);
+		
+		return "/itembuy";
+	}
+	@RequestMapping("/itembuyprocess")
+	public String itembuyprocess(@RequestBody Sold sold,Authentication authentication){
+
+		User user=(User)authentication.getPrincipal();
+		String u_id= user.getUsername();
+		
+		sold.setU_id(u_id);
+		itemservice.insertSold(sold);
+		return "/itembuyprocess";
+	}
 	
 /////////////////////////////////////////관리자 페이지//////////////////////////////////////////////	
 
+	
+	@RequestMapping("/soldList")//주문 관리
+	public String soldList(Model model) {
+		List<Sold> soldList=itemservice.getSoldList();
+		
+		model.addAttribute("soldList", soldList);
+		return "/soldList";
+	}
 	@RequestMapping("/itemset")	//분류관리 메인
 	public String itemset(Model model) {
 		
@@ -144,45 +181,6 @@ public class Controller {
 		
 	}
 	
-	
-	/*@RequestMapping("/midleitemsetwrite") //중분류 카테고리 등록
-	public String midleitemsetwrite(Model model,MidleItem midleItem) {
-		List<Item> itemList=itemservice.getItemList();
-		model.addAttribute("itemList", itemList);
-		
-		return "/midleitemsetwrite";
-	}
-	@RequestMapping("/mdwriteProcess") //중분류 카테고리 등록 프로세스
-	public String mdwriteProcess(Model model,MidleItem mdItem) {
-		String iIdx=mdItem.getI_idx();
-		String mIdx=mdItem.getM_idx();
-		String midleIdx=iIdx + mIdx;
-		mdItem.setM_idx(midleIdx);
-		
-		itemservice.midleitemInsert(mdItem);
-		return "/midleitemwriteProcess";
-	}
-	@RequestMapping("/midlesetUpdate") //중분류 카테고리 수정
-	public String midlesetUpdate(Model model,MidleItem mdItem) {
-		mdItem=itemservice.midlesetDetail(mdItem);
-		
-		model.addAttribute("mdItem" ,mdItem);
-		
-		return "/midlesetUpdate";
-	}
-	@RequestMapping("/midlesetUpdateProcess") //대분류 카테고리 수정 프로세스
-	public String midlesetUpdateProcess(Model model,MidleItem mdItem) {
-		itemservice.midlesetUpdate(mdItem);
-		
-		return "/midlesetUpdateProcess";
-	}
-	@RequestMapping("/midlesetDelete") //중분류 카테고리 삭제
-	public String midlesetDelete(MidleItem mdItem) {
-		
-		itemservice.midlesetDelete(mdItem);
-		
-		return "/midlesetDelete";
-	}*/
 	@RequestMapping("/productset")	//상품관리 메인
 	public String productset(Model model,Search search,Page page) {
 		
@@ -501,6 +499,7 @@ public class Controller {
 		Date nowTime = new Date();
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String nowTimeStr = date.format(nowTime);
+	
 		User user=(User)authentication.getPrincipal();
 		String username= user.getuName();
 		

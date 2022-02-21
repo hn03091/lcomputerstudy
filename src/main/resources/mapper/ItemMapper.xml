@@ -43,6 +43,15 @@
 		FROM 		Item
 		
 	</select>
+	<select id="getSoldList" resultType="Sold">
+		SELECT	*
+		FROM	sold ta
+		LEFT JOIN product tf ON ta.p_idx=tf.p_idx
+		LEFT JOIN size tb ON ta.s_size=tb.s_size
+		LEFT JOIN bank tc ON ta.s_bank=tc.s_bank
+		LEFT JOIN color td ON ta.s_color= td.s_color
+	
+	</select>
 	<!-- 
 	1<select id="getProductList" resultType="Product">
 		SELECT		*
@@ -232,6 +241,28 @@
 		WHERE	i_idx LIKE concat(#{i_idx},'%')
 		
 	</select>
+	
+	<insert id="insertSold" parameterType="Sold">
+		INSERT INTO sold(
+			p_idx,
+			s_idx,
+			s_size,
+			s_color,
+			s_bank,
+			s_account,
+			s_address,
+			u_id
+		)VALUES(
+			#{p_idx},
+			#{s_idx},
+			#{s_size},
+			#{s_color},
+			#{s_bank},
+			#{s_account},
+			#{s_address},
+			#{u_id}
+		)
+	</insert>
 
 
 

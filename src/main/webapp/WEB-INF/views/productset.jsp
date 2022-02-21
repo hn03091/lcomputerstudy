@@ -102,7 +102,7 @@ li.button {
 			</li>
 			<li class="menu3">쇼핑몰관리
 				<ul class="menu3_s submenu">
-					<li>주문 내역</li>
+					<li><a href="/soldList">주문 내역</a></li>
 					<li><a href="/itemset">분류 관리</a></li>
 					<li><a href="/productset">상품 관리</a></li>
 				</ul>
