@@ -18,4 +18,7 @@ public interface UserService extends UserDetailsService{
 	   Collection<GrantedAuthority> getAuthorities(String username);
 
 
+	   public List<User> getuserList();
+
+	   public User getuserDeatil(User user);
 }

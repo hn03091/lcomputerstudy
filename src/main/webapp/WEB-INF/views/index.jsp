@@ -13,53 +13,6 @@
 <title>Insert title here</title>
 </head>
 <style>
-ul, ol, li {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-ul.myMenu {
-	
-}
-
-ul.myMenu>li {
-	display: inline-block;
-	width: 80px;
-	padding: 5px 10px;
-	background: #eee;
-	border: 1px solid #eee;
-	text-align: center;
-	position: relative;
-}
-
-ul.myMenu>li:hover {
-	background: #fff;
-}
-
-ul.myMenu>li ul.submenu {
-	display: none;
-	position: absolute;
-	top: 30px;
-	left: 0;
-}
-
-ul.myMenu>li:hover ul.submenu {
-	display: block;
-}
-
-ul.myMenu>li ul.submenu>li {
-	display: inline-block;
-	width: 80px;
-	padding: 5px 10px;
-	background: #eee;
-	border: 1px solid #eee;
-	text-align: center;
-}
-
-ul.myMenu>li ul.submenu>li:hover {
-	background: #fff;
-}
 
 <!--
 ////////
@@ -103,15 +56,14 @@ li.button {
 		<c:set var="Idx" value="${fn:length(itemList.i_idx) }" />
 		<c:choose>
 			<c:when test="${Idx == '2' }">				
-				<ul><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name } 대분류</a></ul>
+				<li><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name } 대분류</a></li>
 			</c:when>
 			<c:when test="${Idx != '2' }">
-				<li><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name } 중분류 </a></li>
+				<ul><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name } 중분류</a></ul>
 			</c:when>
 		</c:choose>
 
-		<!-- 	<td><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }</a></td>
-		 -->
+		
 		<p>
 	</c:forEach>
 	

@@ -22,6 +22,22 @@
     	WHERE		1=1
     	AND			u_id = #{username}
     </select>
+    <select id="getuserList" resultType="User">
+    	SELECT	u_id	as username,
+    			u_name	as uName,
+    			u_tel,
+    			u_age
+		FROM	user
+    </select>
+    
+	<select id="getuserDetail" resultType="User">
+		SELECT	u_id	as username,
+    			u_name	as uName,
+    			u_tel,
+    			u_age
+		FROM	user
+		WHERE	u_id=#{username}
+	</select>
     <insert id="createUser" parameterType="User">
     	INSERT INTO user(
     		u_id,

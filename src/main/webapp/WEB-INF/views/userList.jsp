@@ -79,8 +79,7 @@ ul.myMenu>li ul.submenu>li:hover {
 			<li class="menu1">메뉴 1</li>
 			<li class="menu2">회원 관리
 				<ul class="menu2_s submenu">
-					<li><a href="/userList">회원 목록</a></li>
-
+					<li>회원 목록</li>
 
 				</ul>
 			</li>
@@ -96,44 +95,33 @@ ul.myMenu>li ul.submenu>li:hover {
 		</ul>
 	</div>
 <hr>
+<div style="OVERFLOW-Y:auto; width:100%; height:250px;">
  <table>
       <thead>
         <tr>
-          <th>대분류코드</th><th>상품명</th><th>관리</th>
+          <th>회원 아이디</th><th>회원 이름</th><th>전화번호</th><th>나이</th><th>상세보기</th>
         </tr>
       </thead>
       <tbody>
-      		<c:forEach var="item" items="${itemList}">
+      	 	<c:forEach var="user" items="${userList}">
 			<tr>
 				
-				<td>${item.i_idx}</td>
-				<td>${item.i_name }</td>
+				<td>${user.username}</td>
+				<td>${user.uName }</td>
+				<td>${user.u_tel }</td>
+				<td>${user.u_age }</td>
 				<td>
-				
-				
-				<form action="/itemsetUpdate" method="post">
-				<input type="hidden" name="i_idx" value="${item.i_idx}">
-				<button type="submit">수정</button>
+					<form action="/userDetail" method="post">
+						<input type="hidden" name="username" value="${user.username}">
+					<button type="submit">상세보기</button>
 				</form>
-				<form action="/itemsetDelete" method="post">
-				<input type="hidden" name="i_idx" value="${item.i_idx}">
-				<button type="submit">삭제</button>
-				</form>
-				
 				</td>
+				</c:forEach>
 				
-
-			</tr>
-		</c:forEach>
 		
       </tbody>
     </table>
-    	
-<a href="/itemsetwrite">새로운 대분류 카테고리 등록</a>
-<p>
-<hr>
-<p>
-
+    </div>
 
 </body>
 </html>

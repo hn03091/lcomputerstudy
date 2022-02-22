@@ -78,7 +78,7 @@ ul.myMenu>li ul.submenu>li:hover {
 			<li class="menu1">메뉴 1</li>
 			<li class="menu2">회원 관리
 				<ul class="menu2_s submenu">
-					<li>회원 목록</li>
+					<li><a href="/userList">회원 목록</a></li>
 
 				</ul>
 			</li>

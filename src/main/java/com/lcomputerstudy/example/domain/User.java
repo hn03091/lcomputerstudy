@@ -4,12 +4,33 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class User implements UserDetails{
-	private static final long serialVersionUTD = 1L;
+	
+	private static final long serialVersionUID = 1L;
+
 	
 	private String username;
 	private String password;
 	private String uName;
 	
+	private String u_tel;
+	private String u_age;
+	
+	public String getU_tel() {
+		return u_tel;
+	}
+
+	public void setU_tel(String u_tel) {
+		this.u_tel = u_tel;
+	}
+
+	public String getU_age() {
+		return u_age;
+	}
+
+	public void setU_age(String u_age) {
+		this.u_age = u_age;
+	}
+
 	private Collection<? extends GrantedAuthority> authorities;
 	
 	private boolean isAccountNonExpired;

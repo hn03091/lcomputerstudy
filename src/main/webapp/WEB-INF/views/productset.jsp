@@ -96,7 +96,8 @@ li.button {
 			<li class="menu1">메뉴 1</li>
 			<li class="menu2">회원 관리
 				<ul class="menu2_s submenu">
-					<li>회원 목록</li>
+					<li><a href="/userList">회원 목록</a></li>
+
 
 				</ul>
 			</li>
@@ -120,7 +121,7 @@ li.button {
 					<legend>글 검색</legend>
 					<label>검색분류</label> <select name="type">
 					
-						<option value="tc.i_name">분류명</option>
+						<option value="i_name">분류명</option>
 						<option value="p_name">상품명</option>
 					</select> <label>검색어</label> <input type="text" name="keyword" value="" /> <input
 						type="submit" value="검색">

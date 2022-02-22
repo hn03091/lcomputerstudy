@@ -16,6 +16,10 @@ public interface UserMapper {
 	   public List<GrantedAuthority> readAuthorities(String username);
 
 	   public void createAuthority(User user);
+	   
+	   public List<User> getuserList();
 
+	public User getuserDetail(User user);
+	
 
 }

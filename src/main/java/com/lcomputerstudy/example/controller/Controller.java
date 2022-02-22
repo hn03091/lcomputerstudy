@@ -38,7 +38,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.BoardFile;
 import com.lcomputerstudy.example.domain.Item;
-import com.lcomputerstudy.example.domain.MidleItem;
+
 import com.lcomputerstudy.example.domain.Page;
 import com.lcomputerstudy.example.domain.Product;
 import com.lcomputerstudy.example.domain.Search;
@@ -72,21 +72,11 @@ public class Controller {
 	}
 	@RequestMapping("/") //메인페이지
 	public String home(Model model, Page page, Board board,Search search,Item item) {
-		page.setCount(boardservice.countBoard(page));
-		page.init();
+		//page.setCount(boardservice.countBoard(page));
+		//page.init();
 		List<Board> list = boardservice.selectBoard(page);
 		List<Item> itemList = itemservice.getItemList();
-	/*	List<Item> iList;
-		List<Item> sList;
-		for( Item iL : itemList) {
-			String iName= iL.getI_idx();
-			int ilong=iName.length();
-			if(ilong <3) {
-				iList.add(iL);
-			}else if(ilong>3) {
-				sList.add(iL);
-			}
-		}*/
+		
 		
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("list", list);
@@ -95,6 +85,7 @@ public class Controller {
 		logger.error("error");
 
 		return "/index";
+		
 	}
 	@RequestMapping("/itemdetail") //상품 상세보기
 	public String itemdetail(Model model,BoardFile boardfile,Product product) {
@@ -125,6 +116,22 @@ public class Controller {
 /////////////////////////////////////////관리자 페이지//////////////////////////////////////////////	
 
 	
+	@RequestMapping("/userDetail")//회원 상세보기
+	public String userDeatil(Model model,User user) {
+		String uId=user.getUsername();
+		user.setUsername(uId);
+		
+		user=userservice.getuserDeatil(user);
+		model.addAttribute("user", user);
+		return "/userDetail";
+	}
+	@RequestMapping("/userList")//회원관리
+	public String userList(Model model) {
+		List<User> userList=userservice.getuserList();
+		
+		model.addAttribute("userList", userList);
+		return "/userList";
+	}
 	@RequestMapping("/soldList")//주문 관리
 	public String soldList(Model model) {
 		List<Sold> soldList=itemservice.getSoldList();

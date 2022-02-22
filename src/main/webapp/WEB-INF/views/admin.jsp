@@ -25,7 +25,7 @@
 
 <body>
 <font size="200em" color="green">
-Beom shop
+<a href="/admin">Beom shop</a>
 </font>
 
 <div id="container">
@@ -41,7 +41,7 @@ Beom shop
     <li class="menu3">
         쇼핑몰관리
         <ul class="menu3_s submenu">
-            <li>주문 내역</li>
+            <li><a href="/soldList">주문 내역</a></li>
             <li><a href="/itemset">분류 관리</a></li>
             <li><a href="/productset">상품 관리</a></li>
         </ul>   

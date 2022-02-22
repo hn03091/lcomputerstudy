@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.BoardFile;
 import com.lcomputerstudy.example.domain.Item;
-import com.lcomputerstudy.example.domain.MidleItem;
+
 import com.lcomputerstudy.example.domain.Page;
 import com.lcomputerstudy.example.domain.Product;
 import com.lcomputerstudy.example.domain.Sold;
