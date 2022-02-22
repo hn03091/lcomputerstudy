@@ -94,7 +94,7 @@ ul.myMenu>li ul.submenu>li:hover {
 		</ul>
 	</div>
 <hr>
-<div style="OVERFLOW-Y:auto; width:100%; height:150px;">
+<div style="OVERFLOW-Y:auto; width:100%; height:500px;">
  <table>
 
       <thead>
@@ -122,7 +122,7 @@ ul.myMenu>li ul.submenu>li:hover {
 				<td>${sold.s_address }</td>
 				<td>${sold.s_account }</td>
 				<td>${sold.b_name }</td>
-				<td>${sold.u_id }</td>
+				<td><a href="/userdetail?uId=${sold.u_id}">${sold.u_id }</a></td>
 				
 				
 

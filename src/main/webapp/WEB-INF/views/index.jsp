@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
 <!DOCTYPE html>
@@ -12,6 +13,11 @@
 <title>Insert title here</title>
 </head>
 <style>
+ul, ol, li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
 
 ul.myMenu {
 	
@@ -21,7 +27,7 @@ ul.myMenu>li {
 	display: inline-block;
 	width: 80px;
 	padding: 5px 10px;
-	background: #FFF0F5;
+	background: #eee;
 	border: 1px solid #eee;
 	text-align: center;
 	position: relative;
@@ -54,7 +60,10 @@ ul.myMenu>li ul.submenu>li {
 ul.myMenu>li ul.submenu>li:hover {
 	background: #fff;
 }
-<!--////////-->
+
+<!--
+////////
+-->
 table {
 	border-collapse: collapse;
 }
@@ -88,40 +97,26 @@ li.button {
 </style>
 <body>
 	<h1>BEOM SHOP</h1>
-	<div id="container">
-		<ul class="myMenu">
-			<li class="menu1">메뉴 1</li>
-			<li class="menu2">회원 관리
-				<ul class="menu2_s submenu">
-					<li>회원 목록</li>
-
-				</ul>
-			</li>
-			<li class="menu3">쇼핑몰관리
-				<ul class="menu3_s submenu">
-					<li>주문 내역</li>
-					<li><a href="/itemset">분류 관리</a></li>
-					<li><a href="/productset">상품 관리</a></li>
-				</ul>
-			</li>
-			<li class="menu4">메뉴 4</li>
-			<li class="menu5">메뉴 5</li>
-		</ul>
-	</div>
-<p>의류</p>
+	
 
 	<c:forEach var="itemList" items="${itemList }">
-			<c:set var ="item" value="${itemList.i_name }"/>
+		<c:set var="Idx" value="${fn:length(itemList.i_idx) }" />
+		<c:choose>
+			<c:when test="${Idx == '2' }">				
+				<ul><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name } 대분류</a></ul>
+			</c:when>
+			<c:when test="${Idx != '2' }">
+				<li><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name } 중분류 </a></li>
+			</c:when>
+		</c:choose>
 
-
-			<td><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }</a></td>
-			<p>		
+		<!-- 	<td><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }</a></td>
+		 -->
+		<p>
 	</c:forEach>
-	<table>
 	
-	<hr>
-
-
+	<table>
+		<hr>
 		<div>
 			<form method="GET">
 				<fieldset>
@@ -129,8 +124,8 @@ li.button {
 					<label>검색분류</label> <select name="type">
 						<option value="b_title">제목</option>
 						<option value="b_writer">작성자</option>
-					</select> <label>검색어</label> <input type="text" name="keyword" value="" /> <input
-						type="submit" value="검색">
+					</select> <label>검색어</label> <input type="text" name="keyword" value="" />
+					<input type="submit" value="검색">
 					<%--f(제목,작성자)=title&q=(검색내용) --%>
 				</fieldset>
 			</form>
@@ -157,7 +152,8 @@ li.button {
 		<ul class="button">
 			<c:choose>
 				<c:when test="${ page.prevPage  >=1 }">
-					<li class="button" style=""><a href="/?nowpage=${page.prevPage}">◀</a></li>
+					<li class="button" style=""><a
+						href="/?nowpage=${page.prevPage}">◀</a></li>
 				</c:when>
 			</c:choose>
 
@@ -177,7 +173,8 @@ li.button {
 
 			<c:choose>
 				<c:when test="${ page.nextPage <= page.lastPage }">
-					<li class="button" style=""><a href="/?nowpage=${page.nextPage}">▶</a></li>
+					<li class="button" style=""><a
+						href="/?nowpage=${page.nextPage}">▶</a></li>
 				</c:when>
 			</c:choose>
 		</ul>
