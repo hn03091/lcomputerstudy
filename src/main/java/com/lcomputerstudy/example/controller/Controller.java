@@ -123,11 +123,14 @@ public class Controller {
 		return "/sales";
 	}
 	@RequestMapping("/userDetail")//회원 상세보기
-	public String userDeatil(Model model,User user) {
+	public String userDeatil(Model model,User user,Sold sold) {
 		String uId=user.getUsername();
 		user.setUsername(uId);
-		
+		sold.setU_id(uId);
+		List<Sold> buyList=itemservice.getbuyList(sold);
 		user=userservice.getuserDeatil(user);
+		
+		model.addAttribute("buyList", buyList);
 		model.addAttribute("user", user);
 		return "/userDetail";
 	}

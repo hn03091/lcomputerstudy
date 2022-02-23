@@ -243,6 +243,8 @@
 		LEFT JOIN	file tc ON ta.p_idx = tc.p_idx
 		GROUP BY	tb.p_name
 	</select>
+	
+	
 
 
 </mapper>
