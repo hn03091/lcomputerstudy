@@ -1,23 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
 <style>
 table {
-	width: 70%;
-	border: 1px solid #444444;
-	border-collapse: collapse;
-}
-
-th, td {
-	border: 1px solid #444444;
-}
+    width: 70%;
+    border: 1px solid #444444;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #444444;
+  }
 
 ul, ol, li {
 	list-style: none;
@@ -66,14 +62,14 @@ ul.myMenu>li ul.submenu>li {
 ul.myMenu>li ul.submenu>li:hover {
 	background: #fff;
 }
+
 </style>
-<title>관리자 메인</title>
+<title>Insert title here</title>
 </head>
 <body>
-<body>
-	<font size="200em" color="green"> Beom shop </font>
+<font size="200em" color="green"> Beom shop </font>
 	<hr>
-	<font size="5em" color="green"> 회원 관리 </font>
+	<font size="5em" color="green"> 판매 순위 </font>
 	<p></p>
 	<div id="container">
 		<ul class="myMenu">
@@ -97,38 +93,36 @@ ul.myMenu>li ul.submenu>li:hover {
 			<li class="menu5">메뉴 5</li>
 		</ul>
 	</div>
-	<hr>
-	<div style="OVERFLOW-Y: auto; width: 100%; height: 250px;">
-		<table>
-			<thead>
-				<tr>
-					<th>회원 아이디</th>
-					<th>회원 이름</th>
-					<th>전화번호</th>
-					<th>나이</th>
-					<th>상세보기</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="user" items="${userList}">
-					<tr>
+<hr>
+<div style="OVERFLOW-Y:auto; width:100%; height:500px;">
+ <table>
 
-						<td>${user.username}</td>
-						<td>${user.uName }</td>
-						<td>${user.u_tel }</td>
-						<td>${user.u_age }</td>
-						<td>
-							<form action="/userDetail" method="post">
-								<input type="hidden" name="username" value="${user.username}">
-								<button type="submit">상세보기</button>
-							</form>
-						</td>
-				</c:forEach>
+      <thead>
+      
+        <tr>
+          <th>상품사진</th>
+    
+          <th>상품명</th>
+         <th>상품 구매횟수</th> 
+        </tr>
+      </thead>
+      <tbody>
+      		<c:forEach var="to" items="${total}">
+			<tr>
+				
+				<td><img src="/image/thumb/${to.fileName }" width="100" height="70"></td>
+				<td>${to.p_name }</td>
+				
+				<td>${to.count }</td>
+				
+				
 
-
-			</tbody>
-		</table>
-	</div>
-
+			</tr>
+		</c:forEach>
+		
+      </tbody>
+      
+    </table>
+</div>
 </body>
 </html>

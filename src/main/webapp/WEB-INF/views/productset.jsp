@@ -86,7 +86,6 @@ li.button {
 <title>관리자 메인</title>
 </head>
 <body>
-<body>
 	<font size="200em" color="green"> Beom shop </font>
 	<hr>
 	<font size="5em" color="green"> 상품 관리 </font>
@@ -103,6 +102,7 @@ li.button {
 			</li>
 			<li class="menu3">쇼핑몰관리
 				<ul class="menu3_s submenu">
+					<li><a href="/sales">매출 현황</a></li>
 					<li><a href="/soldList">주문 내역</a></li>
 					<li><a href="/itemset">분류 관리</a></li>
 					<li><a href="/productset">상품 관리</a></li>
@@ -132,7 +132,7 @@ li.button {
  <table>
       <thead>
         <tr>
-          <th>분류</th><th>상품번호</th><th>상품명</th><th>가격</th><th>관리</th>
+          <th>분류</th><th>상품번호</th><th>상품명</th><th>상품사진</th><th>가격</th><th>관리</th>
         </tr>
       </thead>
       <tbody>
@@ -142,6 +142,7 @@ li.button {
 				
 				<td>${pd.p_idx}</td>
 				<td>${pd.p_name }</td>
+				<td><img src="/image/thumb/${pd.fileName }" width="100" height="70"></td>
 				<td>${pd.p_price }원</td>
 				<td>
 				

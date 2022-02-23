@@ -44,6 +44,7 @@ table tr td, table tr th {
 	<p>등록 날짜 : ${board.bDateTime}</p>
 	<p>작성자 : ${board.bWriter }</p>
 	<p>내용 : ${board.bContent }</p>
+	<p>후기 제품번호:${board.p_idx }</p>
 	<sec:authentication property="principal" var="user" />
 	
 

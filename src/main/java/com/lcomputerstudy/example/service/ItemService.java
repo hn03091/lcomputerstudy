@@ -49,9 +49,13 @@ public interface ItemService {
 	
 	
 	////////////////////////
+	public List<Sold> getbuyList(Sold sold);
+	
 	public void insertSold(Sold sold);
 	
 	public List<Product> getproductList2(Product product);
 	
 	public Product productdetail(Product product); //상품 상세정보
+
+	public List<Product> getsoldTotal();
 }

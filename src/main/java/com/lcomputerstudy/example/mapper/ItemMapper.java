@@ -54,8 +54,10 @@ public interface ItemMapper {
 	
 	public Product productdetail(Product product); //상품 상세정보
 
-	public void insertSold(Sold sold); 
+	public void insertSold(Sold sold);
+
+	public List<Sold> getbuyList(Sold sold); 
 	
-	
+	public List<Product> getsoldTotal();
 	
 }

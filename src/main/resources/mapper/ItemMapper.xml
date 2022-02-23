@@ -27,11 +27,13 @@
 				ta.p_idx ,
                 ta.p_name,
                 ta.p_price,
-                tc.i_name
+                tc.i_name,
+                td.fileName
                 
 	FROM 		product ta
 	
 	left join	item tc on ta.i_idx = tc.i_idx
+	left join	file td on ta.p_idx = td.p_idx
 	INNER join	(SELECT @rownum:= (SELECT COUNT(*) -#{pageNum}+1 FROM product ta)) tb ON 1=1
 	<include refid="searchType"></include>
 	LIMIT #{pageNum},3
@@ -91,15 +93,7 @@
 		<result property="p_content"		column="p_content"/>
 		<result property="p_date"	column="p_date"/>
 		<result property="p_price" column="p_price"/>
-		
-		<collection property="comments" ofType="Comment">
-			<id property="c_no"			column="c_no"/>
-			<result property="p_idx"			column="p_idx"/>
-			<result property="c_content"	column="c_content"/>
-			<result property="c_writer"		column="c_writer"/>
-			<result property="c_date"		column="c_date"/>
-		</collection>
-		 
+	
 		<collection property="boardFiles" ofType="BoardFile">
 			<id property="bfIdx"			column="bf_idx"/>
 			<result property="p_idx"			column="p_idx"/>
@@ -111,7 +105,7 @@
 	<select id="productdetail" resultMap="productResult">
 		SELECT		*
 		FROM		product ta
-		LEFT JOIN 	comment tb ON ta.p_idx = tb.p_idx
+	
 		LEFT JOIN	file tc ON ta.p_idx = tc.p_idx
 		WHERE		ta.p_idx = #{p_idx}
 	</select>
@@ -201,44 +195,13 @@
 		WHERE ta.p_idx = #{p_idx}
 	</insert>
 	
-	<!-- 중분류 
-	<select id="getMidleList" resultType="MidleItem">
-		SELECT	*
-		FROM	midleitem
-	</select>
-	<select id="midlesetDetail" resultType="MidleItem">
-		SELECT	*
-		FROM	midleitem
-		WHERE	m_idx=#{m_idx}
-	</select>
-	<insert id="midleitemInsert" parameterType="MidleItem">
-		INSERT INTO midleitem(
-			i_idx,
-			m_idx,
-			m_name
-		)VALUES(
-			#{i_idx},
-			#{m_idx},
-			#{m_name}
-		)
-		
-	</insert>
-	<insert id="midlesetUpdate" parameterType="MidleItem">
-		UPDATE midleitem
-		SET
-			
-			m_name = #{m_name}
-		WHERE m_idx=#{m_idx}
-	</insert>
-	<insert id ="midlesetDelete" parameterType="MidleItem">
-		DELETE
-		FROM midleitem
-		WHERE m_idx = #{m_idx}
-	</insert>-->
+
 	<select id="getproductList2" resultType="Product">
 		SELECT	*
-		FROM	product
+		FROM	product ta
+		LEFT JOIN file tb ON tb.p_idx=ta.p_idx
 		WHERE	i_idx LIKE concat(#{i_idx},'%')
+		
 		
 	</select>
 	
@@ -263,7 +226,23 @@
 			#{u_id}
 		)
 	</insert>
-
+	
+	<select id="getbuyList" resultType="Sold">
+		SELECT	*
+		FROM	sold ta
+		left join product tb on ta.p_idx = tb.p_idx
+		left join color tc on ta.s_color = tc.s_color
+		left join size td on ta.s_size = td.s_size
+		WHERE	u_id = #{u_id}
+		
+	</select>
+	<select id="getsoldTotal" resultType="Product">
+		SELECT		tb.p_name,COUNT(*) as count,tc.fileName,ta.p_idx
+		FROM		sold ta
+		LEFT JOIN	product tb ON ta.p_idx= tb.p_idx
+		LEFT JOIN	file tc ON ta.p_idx = tc.p_idx
+		GROUP BY	tb.p_name
+	</select>
 
 
 </mapper>

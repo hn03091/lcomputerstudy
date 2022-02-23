@@ -39,6 +39,7 @@ table tr td, table tr th {
 	<table>
 
 		<tr>
+			<th>상품사진</th>
 			<th>상품명</th>
 			<th>가격</th>
 			<th>등록 날짜</th>
@@ -50,6 +51,7 @@ table tr td, table tr th {
 		<c:forEach var="pd" items="${prList}">
 
 			<tr>
+				<td><img src="/image/thumb/${pd.fileName }" width="100" height="70"></td>
 				<td>상품명 : ${pd.p_name}</td>
 				<td>가격 : ${pd.p_price}</td>
 				<td>등록 날짜 : ${pd.p_date}</td>

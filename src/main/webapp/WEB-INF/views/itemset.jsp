@@ -86,6 +86,7 @@ ul.myMenu>li ul.submenu>li:hover {
 			</li>
 			<li class="menu3">쇼핑몰관리
 				<ul class="menu3_s submenu">
+					<li><a href="/sales">판매 순위</a></li>
 					<li><a href="/soldList">주문 내역</a></li>
 					<li><a href="/itemset">분류 관리</a></li>
 					<li><a href="/productset">상품 관리</a></li>

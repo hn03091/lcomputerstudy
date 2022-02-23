@@ -97,7 +97,10 @@ public class ItemServicelmpl implements ItemService {
 	public List<Product> getproductList2(Product product){
 		return itemmapper.getproductList2(product);
 	}
-	
+	@Override
+	public List<Sold> getbuyList(Sold sold){
+		return itemmapper.getbuyList(sold);
+	}
 	@Override
 	public void insertSold(Sold sold) {
 		itemmapper.insertSold(sold);
@@ -106,5 +109,10 @@ public class ItemServicelmpl implements ItemService {
 	@Override //상품 상세 정보
 	public Product productdetail(Product product) {
 		return itemmapper.productdetail(product);
+	}
+	
+	@Override
+	public List<Product> getsoldTotal(){
+		return itemmapper.getsoldTotal();				
 	}
 }

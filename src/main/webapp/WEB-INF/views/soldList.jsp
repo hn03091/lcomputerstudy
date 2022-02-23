@@ -9,15 +9,16 @@
 
 <meta charset="UTF-8">
 <style>
+table {
+	width: 70%;
+	border: 1px solid #444444;
+	border-collapse: collapse;
+}
 
- table {
-    width: 70%;
-    border: 1px solid #444444;
-    border-collapse: collapse;
-  }
-  th, td {
-    border: 1px solid #444444;
-  }
+th, td {
+	border: 1px solid #444444;
+}
+
 ul, ol, li {
 	list-style: none;
 	margin: 0;
@@ -71,7 +72,7 @@ ul.myMenu>li ul.submenu>li:hover {
 <body>
 	<font size="200em" color="green"> Beom shop </font>
 	<hr>
-	<font size="5em" color="green"> 분류 관리 </font>
+	<font size="5em" color="green"> 주문 내역 </font>
 	<p></p>
 	<div id="container">
 		<ul class="myMenu">
@@ -80,10 +81,12 @@ ul.myMenu>li ul.submenu>li:hover {
 				<ul class="menu2_s submenu">
 					<li><a href="/userList">회원 목록</a></li>
 
+
 				</ul>
 			</li>
 			<li class="menu3">쇼핑몰관리
 				<ul class="menu3_s submenu">
+					<li><a href="/sales">판매 순위</a></li>
 					<li><a href="/soldList">주문 내역</a></li>
 					<li><a href="/itemset">분류 관리</a></li>
 					<li><a href="/productset">상품 관리</a></li>
@@ -94,49 +97,54 @@ ul.myMenu>li ul.submenu>li:hover {
 		</ul>
 	</div>
 <hr>
-<div style="OVERFLOW-Y:auto; width:100%; height:500px;">
- <table>
+	<div style="OVERFLOW-Y: auto; width: 100%; height: 500px;">
+		<table>
 
-      <thead>
-      
-        <tr>
-          <th>번호</th>
-          <th>상품명</th>
-          <th>사이즈</th>
-          <th>색상</th>
-          <th>배송지</th>
-          <th>입금 계좌</th>
-          <th>입금 은행</th>
-          <th>주문 고객ID</th>
-          
-        </tr>
-      </thead>
-      <tbody>
-      		<c:forEach var="sold" items="${soldList}">
-			<tr>
-				
-				<td>${sold.s_idx}</td>
-				<td>${sold.p_name }</td>
-				<td>${sold.s_name }</td>
-				<td>${sold.co_name }</td>
-				<td>${sold.s_address }</td>
-				<td>${sold.s_account }</td>
-				<td>${sold.b_name }</td>
-				<td><a href="/userdetail?uId=${sold.u_id}">${sold.u_id }</a></td>
-				
-				
+			<thead>
 
-			</tr>
-		</c:forEach>
-		
-      </tbody>
-      
-    </table>
-</div>
-<p>
-<hr>
-<p>
+				<tr>
+					<th>번호</th>
+					<th>상품명</th>
+					<th>사이즈</th>
+					<th>색상</th>
+					<th>배송지</th>
+					<th>입금 계좌</th>
+					<th>입금 은행</th>
+					<th>주문 고객ID</th>
+					<th>고객 상세보기</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="sold" items="${soldList}">
+					<tr>
+
+						<td>${sold.s_idx}</td>
+						<td>${sold.p_name }</td>
+						<td>${sold.s_name }</td>
+						<td>${sold.co_name }</td>
+						<td>${sold.s_address }</td>
+						<td>${sold.s_account }</td>
+						<td>${sold.b_name }</td>
+						<td>${sold.u_id }</td>
+						<td>
+							<form action="/userDetail" method="post">
+								<input type="hidden" name="username" value="${sold.u_id}">
+								<button type="submit">상세보기</button>
+							</form>
+						</td>
 
 
+
+					</tr>
+				</c:forEach>
+
+			</tbody>
+
+		</table>
+	</div>
+	<p>
+	<hr>
+	<p>
 </body>
 </html>

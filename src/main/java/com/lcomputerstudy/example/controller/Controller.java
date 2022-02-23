@@ -115,7 +115,13 @@ public class Controller {
 	
 /////////////////////////////////////////관리자 페이지//////////////////////////////////////////////	
 
-	
+	@RequestMapping("/sales")
+	public String sales(Model model) {
+		List<Product> total=itemservice.getsoldTotal();
+		
+		model.addAttribute("total", total);
+		return "/sales";
+	}
 	@RequestMapping("/userDetail")//회원 상세보기
 	public String userDeatil(Model model,User user) {
 		String uId=user.getUsername();
@@ -412,7 +418,14 @@ public class Controller {
 	
 
 	@RequestMapping("/boardwrite")
-	public String write(Model model) {
+	public String write(Model model,Authentication authentication,Sold sold) {
+		
+		User user=(User)authentication.getPrincipal();
+		String uId= user.getuName();
+		sold.setU_id(uId);
+		List<Sold> buyList=itemservice.getbuyList(sold);
+		
+		model.addAttribute("buyList", buyList);
 		return "/boardwrite";
 	}
 	@RequestMapping("/boardDelete")
@@ -509,7 +522,7 @@ public class Controller {
 	
 		User user=(User)authentication.getPrincipal();
 		String username= user.getuName();
-		
+	
 	
 		List<String> SavefileNames = new ArrayList<String>();
 		List<MultipartFile> files = boardFile.getFiles();		

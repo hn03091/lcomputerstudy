@@ -54,14 +54,16 @@
 			b_title,
 			b_content,
 			b_writer,
-			b_date
+			b_date,
+			p_idx
 			
 		)VALUES(
 		    #{bId},
 		    #{bTitle},
 		    #{bContent},
 		    #{bWriter},
-		    #{bDateTime}
+		    #{bDateTime},
+		    #{p_idx}
 		
 		)
 		 <selectKey keyProperty="bId" resultType="Integer">
@@ -120,6 +122,7 @@
 		<result property="bContent"		column="b_content"/>
 		<result property="bWriter"		column="b_writer"/>
 		<result property="bDateTime"	column="b_date"/>
+		<result property="p_idx"		column="p_idx"/>
 		
 		<collection property="comments" ofType="Comment">
 			<id property="c_no"			column="c_no"/>
@@ -142,6 +145,7 @@
 		FROM		board ta
 		LEFT JOIN 	comment tb ON ta.b_idx = tb.b_idx
 		LEFT JOIN	file tc ON ta.b_idx = tc.b_idx
+		
 		WHERE		ta.b_idx = #{bId}
 	</select>
 	
@@ -161,7 +165,9 @@
 		
 		where 		board.b_idx = #{bId}
 	</select>
+	<select id="review" resultType="Board">
 	
+	</select>
 	
 	
 	<insert id="boardcomment" parameterType="Board">

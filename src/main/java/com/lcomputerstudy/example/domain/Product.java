@@ -5,7 +5,7 @@ import java.util.List;
 public class Product {
 	private String i_idx;
 	private String i_name;
-
+	private int count;
 	private int p_idx;
 	private String p_name;
 	private String p_content;
@@ -14,6 +14,12 @@ public class Product {
 	private String fileName;
 	
 	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public String getFileName() {
 		return fileName;
 	}
