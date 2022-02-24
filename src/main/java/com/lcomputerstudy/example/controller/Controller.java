@@ -87,6 +87,11 @@ public class Controller {
 		return "/index";
 		
 	}
+	@RequestMapping("/test")
+	public String test() {
+		
+		return"/test";
+	}
 	@RequestMapping("/itemdetail") //상품 상세보기
 	public String itemdetail(Model model,BoardFile boardfile,Product product) {
 		
@@ -396,7 +401,10 @@ public class Controller {
 	@RequestMapping("/productList") //상품 리스트
 	public String productList(Product product,Model model) {
 		List<Product> prList=itemservice.getproductList2(product);
+		List<Item> itemList = itemservice.getItemList();
 		
+		
+		model.addAttribute("itemList", itemList);
 		
 		model.addAttribute("prList" ,prList);
 		return "/productList";

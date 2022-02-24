@@ -44,8 +44,11 @@
 				tb.p_idx
 	FROM		board ta
 	LEFT JOIN	product tb ON ta.p_idx = tb.p_idx
-	WHERE		ta.p_idx= #{p_idx}
-	
+	<where>
+	<if test="p_idx != 0">
+	ta.p_idx= #{p_idx}
+	</if>
+	</where>
 	
 	</select>
 	<insert id="boardwrite" parameterType="Board">

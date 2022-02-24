@@ -34,7 +34,7 @@
     <li class="menu2">
         회원 관리
         <ul class="menu2_s submenu">
-            <li>회원 목록</li>
+            <li><a href="userList">회원 목록</a></li>
             
         </ul>   
     </li>
@@ -52,19 +52,9 @@
 </div>
 <hr>
 
-회원목록
-		<!--<c:forEach var="user" items="${userList}">
-			<tr>
-				<td>${user.ROWNUM }</td>
-				
-				<td>${user.u_id}</td>
-				<td>${user.u_pw }</td>
-				<td>${user.name }</td>
 
-			</tr>
-		</c:forEach>!-->
 <hr>
-최근 구매목록
+
 </body>
 </html>
 

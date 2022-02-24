@@ -200,7 +200,8 @@
 		SELECT	*
 		FROM	product ta
 		LEFT JOIN file tb ON tb.p_idx=ta.p_idx
-		WHERE	i_idx LIKE concat(#{i_idx},'%')
+		LEFT JOIN item tc on tc.i_idx=ta.i_idx
+		WHERE	tc.i_idx LIKE concat(#{i_idx},'%')
 		
 		
 	</select>

@@ -5,15 +5,31 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 부트스트랩 -->
+<!-- 부트스트랩 -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <style>
-
 <!--
 ////////
 -->
@@ -26,8 +42,8 @@ table tr th {
 }
 
 table tr td, table tr th {
-	border: 1px solid #818181;
-	width: 200px;
+	border: 1.5px solid #818181;
+	width: 1px;
 	text-align: center;
 }
 
@@ -48,31 +64,140 @@ li.button {
 	border-radius: 5px;
 }
 </style>
-<body>
-	<h1>BEOM SHOP</h1>
+<body role="document">
+<!-- 상단메뉴 -->
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+		
+		<a class="navbar-brand" href="/">BEOM SHOP</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" href="#">Home
+						<span class="sr-only">(current)</span>
+				</a></li>
+
+				<li class="dropdown"><a href="/" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-expanded="false">의류 <span
+						class="caret"></span>
+				</a>
+					<ul class="dropdown-menu" role="menu">
+
+
+						<c:forEach var="itemList" items="${itemList }">
+							<c:set var="Idx" value="${fn:length(itemList.i_idx) }" />
+							<c:choose>
+								<c:when test="${Idx == '2' }">
+									<li><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }
+									</a></li>
+									<li class="divider"></li>
+									<li class="dropdown-header">------${itemList.i_name}------</li>
+								</c:when>
+								<c:when test="${Idx != '2' }">
+									<li><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }</a></li>
+								</c:when>
+							</c:choose>
+
+
+							<p>
+						</c:forEach>
+					</ul></li>
+				<li class="nav-item"><a class="nav-link" href="/boardList">후기게시판</a></li>
+		
+				<li class="nav-item"><a class="nav-link disabled" href="#"
+					tabindex="-1" aria-disabled="true">문의</a></li>
+			</ul>
+
+		</div>
+	</nav>
+	<!-- 상단메뉴 -->
+	   <div class="jumbotron">
+        <h1>Beom Shop</h1>
+        <p>쇼핑몰입니다.</p>
+      </div>
 	
 
-	<c:forEach var="itemList" items="${itemList }">
+	<!-- <nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">BEOM SHOP</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="/">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-expanded="false">Dropdown
+							<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+
+
+							<c:forEach var="itemList" items="${itemList }">
+								<c:set var="Idx" value="${fn:length(itemList.i_idx) }" />
+								<c:choose>
+									<c:when test="${Idx == '2' }">
+										<li><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }
+										</a></li>
+										<li class="divider"></li>
+										<li class="dropdown-header">${itemList.i_name}</li>
+									</c:when>
+									<c:when test="${Idx != '2' }">
+										<li><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }</a></li>
+									</c:when>
+								</c:choose>
+
+
+								<p>
+							</c:forEach>
+						</ul>
+						</li>
+				</ul>
+			</div>
+		</div>
+	</nav>-->
+
+
+
+
+	<!--<c:forEach var="itemList" items="${itemList }">
 		<c:set var="Idx" value="${fn:length(itemList.i_idx) }" />
 		<c:choose>
-			<c:when test="${Idx == '2' }">				
-				<li><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name } 대분류</a></li>
+			<c:when test="${Idx == '2' }">
+				<li><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }
+						대분류</a></li>
 			</c:when>
 			<c:when test="${Idx != '2' }">
-				<ul><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name } 중분류</a></ul>
+				<ul>
+					<a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }
+						중분류</a>
+				</ul>
 			</c:when>
 		</c:choose>
 
-		
+
 		<p>
 	</c:forEach>
+	-->
 	
-	<table>
+	<table class="table table-hover">
 		<hr>
 		<div>
 			<form method="GET">
 				<fieldset>
-					<legend>글 검색</legend>
+					<legend>후기 게시판</legend>
 					<label>검색분류</label> <select name="type">
 						<option value="b_title">제목</option>
 						<option value="b_writer">작성자</option>
@@ -141,17 +266,22 @@ li.button {
 			<a href="/beforeSignUp">회원가입</a>
 		</sec:authorize>
 		<sec:authorize access="isAuthenticated()">
-			<a href="/boardwrite">게시물 작성</a>
-			<a href="/logout">로그아웃</a>
-			<sec:authentication property="principal" var="principal" />
-			<h2>${principal }</h2>
-		</sec:authorize>
+			<a href="/boardwrite" class="btn btn-success btn-sm" role="button">게시물
+				작성</a>
+			<a href="/user/info" class="btn btn-info btn-sm" role="button">내
+				정보</a>
+			<a href="/logout" class="btn btn-danger btn-sm" role="button">로그아웃</a>
 
+			<sec:authentication property="principal" var="principal" />
+
+		</sec:authorize>
+		<hr>
 	</div>
 	<div>
 		<sec:authorize access="isAuthenticated()">
-			<a href="/user/info">내 정보</a>
-			<a href="/admin">관리자</a>
+
+			<a href="/admin" class="btn btn-warning btn-sm" role="button">관리자
+				메뉴</a>
 		</sec:authorize>
 	</div>
 
