@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-삭제완료
+수정완료
 </body>
 </html>

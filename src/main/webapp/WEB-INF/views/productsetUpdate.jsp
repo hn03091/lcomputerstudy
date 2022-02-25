@@ -61,9 +61,7 @@
 
 		</div>
 	
-		<p>
-			<input type="file" name="files" multiple="multiple">
-		</p>
+		
 		<button type="submit">작성</button>
 		</form>
 		<hr>
@@ -73,13 +71,5 @@
 	
 
 </body>
-<script>
-$(document).on('click', '#btn_add', function () {
-    $(this).before(q_tag);
 
-    alert("삭제완료");
-    
-  });
-
-</script>
 </html>

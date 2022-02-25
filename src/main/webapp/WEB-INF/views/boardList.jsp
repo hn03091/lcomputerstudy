@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,27 +23,13 @@
 	crossorigin="anonymous">
 <meta charset="UTF-8">
 
-<style>
-table {
-	border-collapse: collapse;
-}
-
-table tr th {
-	font-weight: 700;
-}
-
-table tr td, table tr th {
-	border: 1px solid #818181;
-	width: 200px;
-	text-align: center;
-}
-</style>
 
 <title>Insert title here</title>
 </head>
-<body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-		
+<body role="document">
+	<!-- 상단메뉴 -->
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+
 		<a class="navbar-brand" href="/">BEOM SHOP</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
@@ -52,49 +39,76 @@ table tr td, table tr th {
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="/">Home
+				<li class="nav-item active"><a class="nav-link" href="#">Home
 						<span class="sr-only">(current)</span>
 				</a></li>
-<li class="nav-item"><a class="nav-link disabled" href="#"
-					tabindex="-1" aria-disabled="true">의류</a></li>
-				
+
+				<li class="dropdown"><a href="/" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-expanded="false">의류 <span
+						class="caret"></span>
+				</a>
+					<ul class="dropdown-menu" role="menu">
+
+
+						<c:forEach var="itemList" items="${itemList }">
+							<c:set var="Idx" value="${fn:length(itemList.i_idx) }" />
+							<c:choose>
+								<c:when test="${Idx == '2' }">
+									<li class="divider"></li>
+									<li class="dropdown-header"><hr></li>
+
+									<li><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }
+									</a></li>
+									<li class="divider"></li>
+									<li class="dropdown-header">------${itemList.i_name}------</li>
+								</c:when>
+								<c:when test="${Idx != '2' }">
+									<li><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }</a></li>
+								</c:when>
+							</c:choose>
+
+
+							<p>
+						</c:forEach>
+					</ul></li>
 				<li class="nav-item"><a class="nav-link" href="/boardList">후기게시판</a></li>
-		
+
 				<li class="nav-item"><a class="nav-link disabled" href="#"
 					tabindex="-1" aria-disabled="true">문의</a></li>
 			</ul>
 
 		</div>
 	</nav>
-	 <div class="jumbotron">
-        <h1>Review</h1>
-     
-      </div>
+	<div class="jumbotron">
+		<h1>Review</h1>
+		<p>리뷰 게시판</p>
 
-	<table>
+	</div>
+	<div style="OVERFLOW-Y: auto; width: 100%; height: 500px;">
+		<table class="table table-hover">
 
-		<tr>
-			<th>게시판 번호</th>
-			<th>게시판 제목</th>
-			<th>게시판 작성자</th>
-			<th>게시판 작성일</th>
-			<th>리뷰 제품</th>
-			<th>제품 상세보기</th>
-		</tr>
-
-		<c:forEach var="rv" items="${rvList }">
 			<tr>
-				<td>${rv.bId }</td>
-				<td> ${rv.bTitle }</td>
-				<td>${rv.bWriter }</td>
-				<td>${rv.bDateTime }</td>
-				<td><a href="/boarddetail?bId=${rv.bId}">${rv.p_name}</a></td>
-				<td><a href="/itemdetail?p_idx=${rv.p_idx }">제품 상세보기</a></td>
-				
+				<th>게시판 번호</th>
+				<th>게시판 제목</th>
+				<th>게시판 작성자</th>
+				<th>게시판 작성일</th>
+				<th>리뷰 제품</th>
+				<th>제품 상세보기</th>
 			</tr>
-		</c:forEach>
 
-	</table>
-	
+			<c:forEach var="rv" items="${rvList }">
+				<tr>
+					<td>${rv.bId }</td>
+					<td>${rv.bTitle }</td>
+					<td>${rv.bWriter }</td>
+					<td>${rv.bDateTime }</td>
+					<td><a href="/boarddetail?bId=${rv.bId}">${rv.p_name}</a></td>
+					<td><a href="/itemdetail?p_idx=${rv.p_idx }">제품 상세보기</a></td>
+
+				</tr>
+			</c:forEach>
+
+		</table>
+	</div>
 </body>
 </html>

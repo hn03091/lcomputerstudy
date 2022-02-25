@@ -94,6 +94,10 @@ public class Controller {
 	}
 	@RequestMapping("/itemdetail") //상품 상세보기
 	public String itemdetail(Model model,BoardFile boardfile,Product product) {
+		List<Item> itemList = itemservice.getItemList();
+		
+		
+		model.addAttribute("itemList", itemList);
 		
 		product =itemservice.productdetail(product);
 		model.addAttribute("product", product);
@@ -102,7 +106,10 @@ public class Controller {
 	@RequestMapping("/itembuy")
 	public String itembuy(Model model,Product product) {
 		product = itemservice.productdetail(product);
+		List<Item> itemList = itemservice.getItemList();
 		
+		
+		model.addAttribute("itemList", itemList);
 		model.addAttribute("product",product);
 		
 		return "/itembuy";
@@ -375,7 +382,6 @@ public class Controller {
 		product.setP_date(nowTimeStr);
 		
 		itemservice.productsetUpdate(product);
-		itemservice.fileNames(product);
 		
 		
 		return "/productsetUpdateProcess";
@@ -412,7 +418,10 @@ public class Controller {
 	@RequestMapping("/boardList")
 	public String boardList(Model model,Board board) {
 		List<Board> rvList=boardservice.getreviewBoard(board);
+		List<Item> itemList = itemservice.getItemList();
 		
+		
+		model.addAttribute("itemList", itemList);
 		
 		model.addAttribute("rvList", rvList);
 		return "/boardList";
@@ -460,6 +469,10 @@ public class Controller {
 	@RequestMapping("/boardUpdate")
 	public String boardUpdate(BoardFile boardFile,Board board,Model model) {
 		Board data = boardservice.boarddetail(board);
+		List<Item> itemList = itemservice.getItemList();
+		
+		
+		model.addAttribute("itemList", itemList);
 		model.addAttribute("data", data);
 		
 		return "/boardUpdate";
@@ -613,13 +626,11 @@ public class Controller {
 
 	@RequestMapping(value = "/boarddetail")
 	public String detail(BoardFile boardFile, Model model, Board board) {
-
-		
 		board = boardservice.boarddetail(board);		
+		List<Item> itemList = itemservice.getItemList();
 		
 		
-		
-		
+		model.addAttribute("itemList", itemList);
 		model.addAttribute(board);
 
 		return "/boarddetail";

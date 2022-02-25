@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>삭제완료</h1>
+<h1>이미지 등록완료</h1>
 </body>
 </html>

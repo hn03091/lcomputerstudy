@@ -24,26 +24,13 @@
 <meta charset="UTF-8">
 
 <style>
-table {
-	border-collapse: collapse;
-}
-
-table tr th {
-	font-weight: 700;
-}
-
-table tr td, table tr th {
-	border: 1px solid #818181;
-	width: 200px;
-	text-align: center;
-}
 </style>
 <title>Insert title here</title>
 </head>
 <body role="document">
-<!-- 상단메뉴 -->
+	<!-- 상단메뉴 -->
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-		
+
 		<a class="navbar-brand" href="/">BEOM SHOP</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
@@ -68,6 +55,9 @@ table tr td, table tr th {
 							<c:set var="Idx" value="${fn:length(itemList.i_idx) }" />
 							<c:choose>
 								<c:when test="${Idx == '2' }">
+									<li class="divider"></li>
+									<li class="dropdown-header"><hr></li>
+
 									<li><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }
 									</a></li>
 									<li class="divider"></li>
@@ -83,7 +73,7 @@ table tr td, table tr th {
 						</c:forEach>
 					</ul></li>
 				<li class="nav-item"><a class="nav-link" href="/boardList">후기게시판</a></li>
-		
+
 				<li class="nav-item"><a class="nav-link disabled" href="#"
 					tabindex="-1" aria-disabled="true">문의</a></li>
 			</ul>
@@ -91,38 +81,42 @@ table tr td, table tr th {
 		</div>
 	</nav>
 	<!-- 상단메뉴 -->
-	   <div class="jumbotron">
-        <h1>Beom Shop</h1>
-        <p>쇼핑몰입니다.</p>
-      </div>
+	<div class="jumbotron">
+		<h1>Beom Shop</h1>
+		<p>상품 게시판</p>
+	</div>
+	<div style="OVERFLOW-Y: auto; width: 100%; height: 500px;">
+		<table class="table table-hover">
 
-	<table>
-
-		<tr>
-			<th>상품사진</th>
-			<th>상품명</th>
-			<th>가격</th>
-			<th>등록 날짜</th>
-			<th>제품 상세보기</th>
-			<th>제품 후기보기</th>
-
-		</tr>
-
-		<c:forEach var="pd" items="${prList}">
-			
 			<tr>
-				<td><img src="/image/thumb/${pd.fileName }" width="100" height="70"></td>
-				<td>상품명 : ${pd.p_name}</td>
-				<td>가격 : ${pd.p_price}</td>
-				<td>등록 날짜 : ${pd.p_date}</td>
-				<td><a href="/itemdetail?p_idx=${pd.p_idx }">상세보기</a></td>
-				<td><a href="/boardList?p_idx=${pd.p_idx }">제품 후기보기</a></td>
+				<th>상품사진</th>
+				<th>상품명</th>
+				<th>가격</th>
+				<th>등록 날짜</th>
+				<th>제품 상세보기</th>
+				<th>제품 후기보기</th>
+
 			</tr>
 
-		</c:forEach>
+			<c:forEach var="pd" items="${prList}">
 
-	</table>
+				<tr>
+					<td><img src="/image/thumb/${pd.fileName }" width="100"
+						height="70"></td>
+					<td>${pd.p_name}</td>
+					<td>${pd.p_price}원</td>
+					<td>${pd.p_date}</td>
+					<td><a href="/itemdetail?p_idx=${pd.p_idx }"
+						class="btn btn-info btn-lg" role="button">상세보기</a></td>
+					<td><a href="/boardList?p_idx=${pd.p_idx }"
+						class="btn btn-info btn-lg" role="button">제품 후기보기</a></td>
+				</tr>
 
-	<a href="/">돌아가기</a>
+			</c:forEach>
+
+		</table>
+	</div>
+
+
 </body>
 </html>

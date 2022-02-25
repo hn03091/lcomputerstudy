@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-
+<h1>이미지 수정하기</h1>
 <body>
 	<form action="/productsetfileUpdateProcess" method="post"
 		enctype="multipart/form-data">

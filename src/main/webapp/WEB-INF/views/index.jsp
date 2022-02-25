@@ -65,9 +65,9 @@ li.button {
 }
 </style>
 <body role="document">
-<!-- 상단메뉴 -->
+	<!-- 상단메뉴 -->
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-		
+
 		<a class="navbar-brand" href="/">BEOM SHOP</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
@@ -92,6 +92,9 @@ li.button {
 							<c:set var="Idx" value="${fn:length(itemList.i_idx) }" />
 							<c:choose>
 								<c:when test="${Idx == '2' }">
+									<li class="divider"></li>
+									<li class="dropdown-header"><hr></li>
+
 									<li><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }
 									</a></li>
 									<li class="divider"></li>
@@ -107,7 +110,7 @@ li.button {
 						</c:forEach>
 					</ul></li>
 				<li class="nav-item"><a class="nav-link" href="/boardList">후기게시판</a></li>
-		
+
 				<li class="nav-item"><a class="nav-link disabled" href="#"
 					tabindex="-1" aria-disabled="true">문의</a></li>
 			</ul>
@@ -115,83 +118,13 @@ li.button {
 		</div>
 	</nav>
 	<!-- 상단메뉴 -->
-	   <div class="jumbotron">
-        <h1>Beom Shop</h1>
-        <p>쇼핑몰입니다.</p>
-      </div>
-	
-
-	<!-- <nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">BEOM SHOP</a>
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="/">Home</a></li>
-					<li><a href="#about">About</a></li>
-					<li><a href="#contact">Contact</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-expanded="false">Dropdown
-							<span class="caret"></span>
-					</a>
-						<ul class="dropdown-menu" role="menu">
-
-
-							<c:forEach var="itemList" items="${itemList }">
-								<c:set var="Idx" value="${fn:length(itemList.i_idx) }" />
-								<c:choose>
-									<c:when test="${Idx == '2' }">
-										<li><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }
-										</a></li>
-										<li class="divider"></li>
-										<li class="dropdown-header">${itemList.i_name}</li>
-									</c:when>
-									<c:when test="${Idx != '2' }">
-										<li><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }</a></li>
-									</c:when>
-								</c:choose>
-
-
-								<p>
-							</c:forEach>
-						</ul>
-						</li>
-				</ul>
-			</div>
-		</div>
-	</nav>-->
+	<div class="jumbotron">
+		<h1>Beom Shop</h1>
+		<p>메인페이지</p>
+	</div>
 
 
 
-
-	<!--<c:forEach var="itemList" items="${itemList }">
-		<c:set var="Idx" value="${fn:length(itemList.i_idx) }" />
-		<c:choose>
-			<c:when test="${Idx == '2' }">
-				<li><a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }
-						대분류</a></li>
-			</c:when>
-			<c:when test="${Idx != '2' }">
-				<ul>
-					<a href="/productList?i_idx=${itemList.i_idx}">${itemList.i_name }
-						중분류</a>
-				</ul>
-			</c:when>
-		</c:choose>
-
-
-		<p>
-	</c:forEach>
-	-->
-	
 	<table class="table table-hover">
 		<hr>
 		<div>
@@ -272,19 +205,20 @@ li.button {
 				정보</a>
 			<a href="/logout" class="btn btn-danger btn-sm" role="button">로그아웃</a>
 
-			<sec:authentication property="principal" var="principal" />
-
-		</sec:authorize>
-		<hr>
-	</div>
-	<div>
-		<sec:authorize access="isAuthenticated()">
+		
+		<sec:authentication property="principal" var="user" />
+			<c:if
+				test="${user.authorities == '[ROLE_ADMIN, ROLE_USER]' }">
+				<sec:authorize access="isAuthenticated()">
 
 			<a href="/admin" class="btn btn-warning btn-sm" role="button">관리자
 				메뉴</a>
+				</sec:authorize>
+			</c:if>
 		</sec:authorize>
+		<hr>
 	</div>
-
+	
 
 </body>
 </html>
