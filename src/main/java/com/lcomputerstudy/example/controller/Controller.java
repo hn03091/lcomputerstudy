@@ -74,6 +74,7 @@ public class Controller {
 	public String home(Model model, Page page, Board board,Search search,Item item) {
 		//page.setCount(boardservice.countBoard(page));
 		//page.init();
+		
 		List<Board> list = boardservice.selectBoard(page);
 		List<Item> itemList = itemservice.getItemList();
 		
@@ -441,7 +442,7 @@ public class Controller {
 	public String write(Model model,Authentication authentication,Sold sold) {
 		
 		User user=(User)authentication.getPrincipal();
-		String uId= user.getuName();
+		String uId= user.getUsername();
 		sold.setU_id(uId);
 		List<Sold> buyList=itemservice.getbuyList(sold);
 		

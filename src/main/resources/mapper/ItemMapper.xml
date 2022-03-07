@@ -238,11 +238,24 @@
 		
 	</select>
 	<select id="getsoldTotal" resultType="Product">
-		SELECT		tb.p_name,COUNT(*) as count,tc.fileName,ta.p_idx
-		FROM		sold ta
-		LEFT JOIN	product tb ON ta.p_idx= tb.p_idx
+		SELECT		ta.count,
+					tb.p_name,
+					tc.fileName
+		FROM		(
+					SELECT		*
+					FROM			(
+									SELECT		tb.p_idx,
+													COUNT(*) as count
+									FROM		sold ta
+									LEFT JOIN	product tb ON ta.p_idx= tb.p_idx
+									LEFT JOIN	file tc ON ta.p_idx = tc.p_idx
+									GROUP BY	tb.p_idx
+									) ta
+					
+					) ta
+		LEFT JOIN	product tb ON ta.p_idx = tb.p_idx
 		LEFT JOIN	file tc ON ta.p_idx = tc.p_idx
-		GROUP BY	tb.p_name
+		ORDER BY 	COUNT DESC
 	</select>
 	
 	

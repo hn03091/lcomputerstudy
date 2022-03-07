@@ -142,7 +142,7 @@
 		 	data: JSON.stringify(additem)
 		 })
 		 .done(function (data){
-			 console.log(data);
+			 console.log(additem);
 			 alert('주문완료');
 		 });
 	});
