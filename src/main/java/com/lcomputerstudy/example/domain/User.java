@@ -102,10 +102,8 @@ public class User implements UserDetails{
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", uName=" + uName + ", authorities="
-				+ authorities + ", isAccountNonExpired=" + isAccountNonExpired + ", isAccountNonLocked="
-				+ isAccountNonLocked + ", isCredentialsNonExpired=" + isCredentialsNonExpired + ", isEnabled="
-				+ isEnabled + "]";
+		return "내정보 [아이디:" + username + ",이름:" + uName + ", 권한:"
+				+ authorities + "]";
 	}
 
 	

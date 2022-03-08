@@ -8,7 +8,7 @@
 				AND b_title like concat('%',#{keyword},'%')
 			</if>
 			<if test="type == 'b_writer' and keyword != null and keyword != ''">
-				AND b_writer like concat('$',#{keyword},'%')
+				AND b_writer like concat('%',#{keyword},'%')
 			</if>
 		</trim>
 	</sql>
@@ -48,6 +48,8 @@
 	<if test="p_idx != 0">
 	ta.p_idx= #{p_idx}
 	</if>
+	
+	
 	</where>
 	
 	</select>

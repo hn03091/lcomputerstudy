@@ -72,8 +72,8 @@ public class Controller {
 	}
 	@RequestMapping("/") //메인페이지
 	public String home(Model model, Page page, Board board,Search search,Item item) {
-		//page.setCount(boardservice.countBoard(page));
-		//page.init();
+		page.setCount(boardservice.countBoard(page));
+		page.init();
 		
 		List<Board> list = boardservice.selectBoard(page);
 		List<Item> itemList = itemservice.getItemList();
@@ -673,7 +673,10 @@ public class Controller {
 	@Secured({ "ROLE_USER" })
 	@RequestMapping(value = "/user/info")
 	public String userInfo(Model model) {
-
+		List<Item> itemList = itemservice.getItemList();
+		
+		
+		model.addAttribute("itemList", itemList);
 		return "/user_info";
 	}
 

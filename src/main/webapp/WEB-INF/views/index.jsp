@@ -63,6 +63,7 @@ li.button {
 	margin: 0 5px;
 	border-radius: 5px;
 }
+
 </style>
 <body role="document">
 	<!-- 상단메뉴 -->
@@ -121,8 +122,59 @@ li.button {
 	<div class="jumbotron">
 		<h1>Beom Shop</h1>
 		<p>메인페이지</p>
-	</div>
+	</div>		
+	<!--  --> 	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="width: 400px; margin: 0 auto">
+		  <ol class="carousel-indicators">
+		    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+		    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+		    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+		  </ol>
+		  <div class="carousel-inner">
+		    <div class="carousel-item active">
+		      <img class="d-block w-100" src="/image/thumb/캡처.JPG" alt="First slide" width="100"
+						height="200">
+						<img class="d-block w-100" src="/image/thumb/thumb1120457854644700티셔츠.JPG" alt="Second slide" width="100"
+						height="200">
+		    </div>
+		    <div class="carousel-item">
+		      <img class="d-block w-100" src="/image/thumb/thumb1120812205940600청바지.JPG" alt="Second slide" width="100"
+						height="200">
+				<img class="d-block w-100" src="/image/thumb/캡처.JPG" alt="Second slide" width="100"
+						height="200">
+		    </div>
+		    <div class="carousel-item">
+		      <img class="d-block w-100" src="/image/thumb/thumb1121435274865699슬랙스.JPG" alt="Third slide" width="100"
+						height="200">
+					<img class="d-block w-100" src="/image/thumb/캡처.JPG" alt="Second slide" width="100"
+						height="200">
+						
+		    </div>
+		  </div>
+		  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="sr-only">Previous</span>
+		  </a>
+		  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="sr-only">Next</span>
+		  </a>
+		</div>
+		 
 
+<ul class="carousel-indicators">
+	<li data-target="#demo" data-slide-to="0" class="active"></li>
+	<li data-target="#demo" data-slide-to="1"></li>
+	<li data-target="#demo" data-slide-to="2"></li>
+	<li data-target="#demo" data-slide-to="3"></li>	
+</ul>
+
+<!-- <img src="/image/thumb/thumb1120457854644700티셔츠.JPG" width="200"
+						height="300">		
+<img src="/image/thumb/thumb1120812205940600청바지.JPG" width="200"
+						height="300">
+<img src="/image/thumb/thumb1121435274865699슬랙스.JPG" width="200"
+						height="300">
+ -->
 
 
 	<table class="table table-hover">
@@ -219,6 +271,12 @@ li.button {
 		<hr>
 	</div>
 	
-
+<Script>
+$('.carousel').carousel({
+	interval: 2000,
+	pause: 'hove',
+	wrap: true
+})
+</Script>
 </body>
 </html>

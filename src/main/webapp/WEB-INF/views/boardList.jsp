@@ -84,6 +84,7 @@
 		<p>리뷰 게시판</p>
 
 	</div>
+	
 	<div style="OVERFLOW-Y: auto; width: 100%; height: 500px;">
 		<table class="table table-hover">
 

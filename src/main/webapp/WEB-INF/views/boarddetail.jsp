@@ -127,6 +127,7 @@
 		
 	</form>
 
+
 	<c:if test="${user.uName  == board.bWriter }">
 
 		<form action="/boardUpdate" method="post">
